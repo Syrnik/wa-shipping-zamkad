@@ -1,0 +1,56 @@
+#shipping-zamkad-settings-block .vue-dates-list {
+  display: inline;
+  margin: 0;
+  list-style-type: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0;
+}
+#shipping-zamkad-settings-block .vue-dates-list li {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0 0.3em 0 0;
+  padding: 3px;
+  border: 1px solid transparent;
+  font-size: 12px;
+  border-radius: 3px;
+  line-height: 12px;
+  height: 20px;
+  display: inline-block;
+}
+#shipping-zamkad-settings-block .vue-dates-list li a {
+  vertical-align: middle;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+#shipping-zamkad-settings-block .vue-dates-list li a i.icon10 {
+  margin: 0;
+  vertical-align: initial;
+  line-height: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+#shipping-zamkad-settings-block .vdp-datepicker .cell.selected {
+  background-color: transparent;
+}
+#shipping-zamkad-settings-block .holidays .vdp-datepicker .cell.highlighted {
+  background-color: #cfc;
+}
+#shipping-zamkad-settings-block .holidays .vdp-datepicker .cell.selected.highlighted {
+  background-color: #cfc;
+}
+#shipping-zamkad-settings-block .holidays .vue-dates-list > li {
+  background-color: #cfc;
+  border-color: #90ee90;
+}
+#shipping-zamkad-settings-block .workdays .vdp-datepicker .cell.highlighted {
+  background-color: #fcc;
+}
+#shipping-zamkad-settings-block .workdays .vdp-datepicker .cell.selected.highlighted {
+  background-color: #fcc;
+}
+#shipping-zamkad-settings-block .workdays .vue-dates-list > li {
+  background-color: #fcc;
+  border-color: #bc8f8f;
+}

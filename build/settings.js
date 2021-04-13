@@ -1,12 +1,13 @@
 import Vue from 'vue';
 import SettingsApp from './vue/SettingsApp.vue';
-// import AddNs from './vue/components/wa-namespace'
-// import WaField from './vue/components/wa-field.vue'
-// import jqContent from './vue/components/jq-html-content'
+import AddNs from './vue/components/wa-namespace'
+import WaField from './vue/components/wa-field.vue'
+import WaFieldSimple from './vue/components/wa-field-simple.vue'
 
-// Vue.mixin(AddNs);
-// Vue.mixin(jqContent);
-// Vue.component('WaField', WaField);
+Vue.mixin(AddNs);
+//Vue.mixin(jqContent);
+Vue.component('WaField', WaField);
+Vue.component('WaFieldSimple', WaFieldSimple);
 
 export default function (options) {
     options = options || {};

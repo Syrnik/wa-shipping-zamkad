@@ -12,7 +12,7 @@ let config = {
     },
     resolve: {
         alias: {
-            'vue$': 'vue/dist/vue.runtime.esm-bundler.js'
+            'vue$': 'vue/dist/vue.runtime.esm.js'
         }
     },
     optimization: {
@@ -42,6 +42,15 @@ let config = {
                     'vue-style-loader',
                     'css-loader',
                     'stylus-loader'
+                ]
+            },
+            {
+                test: /\.scss?$/,
+                exclude: /node_modules/,
+                use: [
+                    'vue-style-loader',
+                    'css-loader',
+                    'sass-loader'
                 ]
             },
             {

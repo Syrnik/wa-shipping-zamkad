@@ -1,0 +1,31 @@
+<!--suppress JSNonASCIINames, NonAsciiCharacters -->
+<div id="zamkad-shipping-settings">
+    <h3>Загрузка настроек <i class="icon16 loading"></i></h3>
+</div>
+<script>
+    $(function () {
+        $.when($.Deferred(function (defer) {
+            if (typeof ShippingZamkadPluginSettings != 'undefined') {
+                defer.resolve();
+                return;
+            }
+            $.getScript('{$wa_static_url}wa-plugins/shipping/zamkad/js/settings.js?v=' + '{$info.version}')
+                .done(function () {
+                    defer.resolve();
+                })
+                .fail(function () {
+                    $('#pec-shipping-settings').append('<p class="red">Ошибка загрузки скрипта настроек.</p>');
+                    defer.reject();
+                });
+        })).done(function () {
+            ShippingZamkadPluginSettings({
+                el: '#zamkad-shipping-settings',
+                info: {$info|json_encode},
+                settings: {$settings|json_encode}
+            });
+        });
+    });
+</script>
+<style>
+    {include file="../css/settings.css" inline}
+</style>
