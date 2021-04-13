@@ -161,6 +161,9 @@ class zamkadShipping extends waShipping
                         for ($i = 1; $i < 8; $i++) if (!isset($v[$i])) $v[$i] = false;
                     });
                     break;
+                case 'desired_delivery':
+                    $value = ['date' => (bool)($value['date'] ?? false), 'interval' => (bool)($value['interval'] ?? false)];
+                    break;
             }
             $settings[$setting] = $value;
         }
