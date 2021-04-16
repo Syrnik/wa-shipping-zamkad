@@ -37,14 +37,19 @@ class zamkadShipping extends waShipping
         return 'kg';
     }
 
+    /**
+     * @param waOrder $order
+     * @return array
+     * @throws Exception
+     */
     public function customFields(waOrder $order): array
     {
         $fields = parent::customFields($order);
-        $params = (array)$order->shipping_params;
+        $shipping_params = (array)$order->shipping_params;
 
         $fields['zamkad_distance'] = [
             'control_type' => waHtmlControl::INPUT,
-            'value'        => $params['zamkad_distance'] ?? '1',
+            'value'        => $shipping_params['zamkad_distance'] ?? '1',
             'title'        => $this->getSettings('field_name') ?: 'Расстояние от МКАД (км.)',
             'description'  => 'Плата за каждый полный и неполный км.',
             'field_type'   => 'number',
@@ -55,6 +60,8 @@ class zamkadShipping extends waShipping
             'required'     => 1,
             'data'         => ['affects-rate' => true]
         ];
+
+        $fields['desired_delivery'] = (new zamkadShippingDesiredDeliveryOrderField($this, $order))->build();
 
         return $fields;
     }
@@ -169,5 +176,14 @@ class zamkadShipping extends waShipping
         }
 
         return $this->_typecasted_settings = $settings;
+    }
+
+    /**
+     * @param string $property
+     * @return float|int|mixed|null
+     */
+    public function getPackageProperty($property)
+    {
+        return parent::getPackageProperty($property);
     }
 }
