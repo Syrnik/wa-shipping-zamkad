@@ -61,7 +61,8 @@ class zamkadShipping extends waShipping
             'data'         => ['affects-rate' => true]
         ];
 
-        $fields['desired_delivery'] = (new zamkadShippingDesiredDeliveryOrderField($this, $order))->build();
+        if ($desired_delivery_field = (new zamkadShippingDesiredDeliveryOrderField($this, $order))->build())
+            $fields['desired_delivery'] = $desired_delivery_field;
 
         return $fields;
     }

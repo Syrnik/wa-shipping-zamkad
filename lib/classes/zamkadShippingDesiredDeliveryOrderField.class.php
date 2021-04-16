@@ -42,9 +42,15 @@ class zamkadShippingDesiredDeliveryOrderField
 
         $days_from_now = (int)max(0, round(($this->getStartTime() - time() / 24 * 3600)));
         $field = [
-            'value'    => $this->extractValuesFromOrder(),
-            'date'     => $setting['date'] ?? 0,
-            'interval' => $setting['interval'] ?? 0
+            'value'        => $this->extractValuesFromOrder(),
+            'control_type' => waHtmlControl::DATETIME,
+            'title'        => $this->plugin->_w('Preferred delivery time'),
+            'params'       => [
+                'autocomlpete' => false,
+                'date'         => $setting['date'] ? $days_from_now : null,
+                'interval'     => $setting['interval'] ?? 0,
+            ]
+
         ];
 
         if ($this->plugin->timeframes) {
@@ -52,7 +58,7 @@ class zamkadShippingDesiredDeliveryOrderField
                 $this->plugin->setParams($this->order->params);
 
             foreach ($this->plugin->timeframes as $timeframe) {
-                $field['intervals'][] = $this->buildInterval($timeframe, $this->getStartTime());
+                $field['params']['intervals'][] = $this->buildInterval($timeframe, $this->getStartTime());
             }
         }
 
@@ -72,14 +78,15 @@ class zamkadShippingDesiredDeliveryOrderField
         $shop_time_zone = new DateTimeZone($shop_time_zone ?: date_default_timezone_get());
 
         $interval = [
-            'from_m' => '00',
-            'to_m'   => '00',
             'day'    => [],
             'offset' => 0,
         ];
 
-        $i_from = sprintf('%02d:%02d', $timeframe['from_hour'], $timeframe['from_minutes']);
-        $i_to = sprintf('%02d:%02d', $timeframe['to_hour'], $timeframe['to_minutes']);
+        $i_from = sprintf('%02d:%02d', $timeframe['from_hour'], $timeframe['from_minutes'] ?: 0);
+        $i_to = sprintf('%02d:%02d', $timeframe['to_hour'], $timeframe['to_minutes'] ?: 0 );
+        list($interval['from'], $interval['from_m']) = explode(':', $i_from, 2);
+        list($interval['to'], $interval['to_m']) = explode(':', $i_to, 2);
+
         $interval['interval'] = "$i_from-$i_to";
 
         $days = array_map('intval', array_filter($timeframe, function ($v, $k) {
