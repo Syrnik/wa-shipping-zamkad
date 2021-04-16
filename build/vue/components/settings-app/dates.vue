@@ -4,7 +4,7 @@
       <ul class="vue-dates-list">
         <li v-for="(d, idx) in highlighted.dates" :class="listItemClass"><input type="hidden" :name="addns(idx, ns)"
                                                                                 :value="YMDdate(d)">{{ d | DMYdate }} <a
-            href="#"><i class="icon10 no"></i></a></li>
+            href="#" @click.prevent="toggleDate(d)"><i class="icon10 no"></i></a></li>
       </ul>
     </div>
     <div class="value">
