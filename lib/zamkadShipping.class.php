@@ -404,4 +404,19 @@ class zamkadShipping extends waShipping
 
         return $controller;
     }
+
+    /**
+     * @return array[]
+     */
+    public function allowedAddress(): array
+    {
+        $setting = $this->geography_limits;
+        if (!$setting['country']) return parent::allowedAddress();
+
+        $allowed = ['country' => $setting['country']];
+        if (strlen($setting['region'])) $allowed['region'] = $setting['region'];
+
+        return [$allowed];
+    }
+
 }
