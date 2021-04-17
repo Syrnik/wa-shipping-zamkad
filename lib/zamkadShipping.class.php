@@ -20,18 +20,39 @@ class zamkadShipping extends waShipping
      */
     protected function calculate()
     {
-        return [[
-            'name'     => 'Доставка за МКАД',
-            'currency' => 'RUB',
-            'rate'     => 80 * 3,
-        ]];
+        $delivery_variant = [
+            'name'     => 'Доставка',
+            'currency' => 'RUB'
+        ];
+
+        if ($this->getSelectedServiceId() === null) $delivery_variant += $this->getMinMaxRates();
+        else {
+            $params = (array)$this->getPackageProperty('shipping_params');
+            $distance = ifset($params['zamkad_distance']);
+            if ($distance !== null) $distance = (int)max(1, (int)$distance);
+            if ($distance && (int)$distance) {
+                if (($rate = $this->calcByRule($distance)) !== null)
+                    $delivery_variant += ['rate' => $rate];
+                else $delivery_variant += ['rate' => null, 'comment' => 'Доставка на указанное расстояние невозможна'];
+            } else {
+                $delivery_variant += ['rate' => null, 'comment' => 'Укажите расстояние в км.'];
+            }
+        }
+
+        return ['zamkad' => $delivery_variant];
     }
 
+    /**
+     * @return string
+     */
     public function allowedCurrency(): string
     {
         return 'RUB';
     }
 
+    /**
+     * @return string
+     */
     public function allowedWeightUnit(): string
     {
         return 'kg';
@@ -49,11 +70,10 @@ class zamkadShipping extends waShipping
 
         $fields['zamkad_distance'] = [
             'control_type' => waHtmlControl::INPUT,
-            'value'        => $shipping_params['zamkad_distance'] ?? '1',
+            'value'        => $shipping_params['zamkad_distance'] ?? '',
             'title'        => $this->getSettings('field_name') ?: 'Расстояние от МКАД (км.)',
             'description'  => 'Плата за каждый полный и неполный км.',
             'field_type'   => 'number',
-            'placeholder'  => '1',
             'min'          => 1,
             'max'          => 150,
             'step'         => 1,
@@ -229,5 +249,90 @@ class zamkadShipping extends waShipping
             return $date;
         }, $user_offsets);
 
+    }
+
+    /**
+     * @param int $distance
+     * @return array|null
+     */
+    protected function findPriceRule(int $distance): ?array
+    {
+        $table = $this->km_table;
+        $last = end($table);
+        if ($distance > $last['to']) return null;
+
+        $rule = [];
+        foreach ($table as $row) {
+            if ($row['to'] < $distance) continue;
+            else {
+                $rule = $row;
+                break;
+            }
+        }
+
+        return $rule ?: null;
+    }
+
+    /**
+     * Хак, чтобы в Shop-Script 8.0 .... 8.4 тоже получать выбранный пункт
+     *
+     * @return string|null
+     */
+    public function getSelectedServiceId(): ?string
+    {
+        if (($service_id = parent::getSelectedServiceId()) !== null) return $service_id;
+
+        $shipping_params = $this->getPackageProperty('shipping_params');
+
+        if (is_array($shipping_params)) {
+            $variant_id = ifset($shipping_params, 'service', 'variant_id', null);
+            if ($variant_id === null) return null;
+
+            if (preg_match('/^\d+\..*/', $variant_id) && substr($variant_id, 0, strlen($this->key) + 1) == "{$this->key}.")
+                return $variant_id;
+
+        }
+
+        return null;
+    }
+
+    /**
+     * @param int $distance
+     * @return float|null
+     */
+    public function calcByRule(int $distance): ?float
+    {
+        $rule = $this->findPriceRule($distance);
+        if ($rule === null) return null;
+
+        return round(max(0, $rule['base'] + $distance * $rule['price']), 2);
+    }
+
+    /**
+     * @return array
+     */
+    protected function getMinMaxRates(): array
+    {
+        $table = $this->km_table;
+        $first = reset($table);
+        $last = array_pop($table);
+        if ($table) $pre_last = array_pop($table);
+        else $pre_last = ['to' => 0];
+
+        $rate[] = $first['base'] ? max(0, round($first['base'], 2)) : 0;
+        $rate[] = round(max(0, $last['base'] + ($last['to'] - $pre_last['to']) * $last['price']));
+
+        $rate = array_unique($rate);
+
+        if (count($rate) > 1) {
+            sort($rate, SORT_NUMERIC);
+            return [
+//            'rate'     => $min_rate,
+                'rate'     => $rate,
+                'rate_min' => $rate[0],
+                'rate_max' => $rate[1]
+            ];
+        } else
+            return ['rate' => $rate[0]];
     }
 }
