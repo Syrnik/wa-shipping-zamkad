@@ -14,7 +14,7 @@ return array(
         48 => 'img/icon-48.png',
         64 => 'img/icon-64.png',
     ],
-    'logo'                  => 'img/logo-60-32.png',
+    'logo'                  => 'img/logo-60x32.png',
     'version'               => '1.0.0',
     'vendor'                => '670917',
     'services_by_type'      => true,
