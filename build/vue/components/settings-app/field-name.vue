@@ -1,6 +1,7 @@
 <template>
   <wa-field-simple name="Название поля с расстоянием" value_class="no-shift">
-    <input type="text" class="long" :name="addns('field_name', ns)" v-model.trim="setting" @input="$emit('input', setting)">
+    <input type="text" class="long" :name="addns('field_name', ns)" v-model.trim="setting"
+           @input="$emit('input', setting)" placeholder="Расстояние от города (км.)">
   </wa-field-simple>
 </template>
 

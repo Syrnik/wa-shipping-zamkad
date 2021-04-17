@@ -21,7 +21,7 @@ class zamkadShipping extends waShipping
     protected function calculate()
     {
         $delivery_variant = [
-            'name'     => 'Доставка',
+            'name'     => $this->variant_name ?: 'Доставка за город',
             'currency' => 'RUB'
         ];
 
@@ -71,7 +71,7 @@ class zamkadShipping extends waShipping
         $fields['zamkad_distance'] = [
             'control_type' => waHtmlControl::INPUT,
             'value'        => $shipping_params['zamkad_distance'] ?? '',
-            'title'        => $this->getSettings('field_name') ?: 'Расстояние от МКАД (км.)',
+            'title'        => $this->getSettings('field_name') ?: 'Расстояние от города (км.)',
             'description'  => 'Плата за каждый полный и неполный км.',
             'field_type'   => 'number',
             'min'          => 1,
@@ -128,8 +128,8 @@ class zamkadShipping extends waShipping
         foreach ($settings as $setting => $value) {
             switch ($setting) {
                 case 'field_value':
+                case 'variant_name':
                     $value = trim((string)$value);
-                    if (!$value) $value = 'Расстояние от МКАД (км.)';
                     break;
                 case 'weight_limits':
                     if (!is_array($value)) $value = ['min' => 0, 'max' => 0];
@@ -334,5 +334,18 @@ class zamkadShipping extends waShipping
             ];
         } else
             return ['rate' => $rate[0]];
+    }
+
+    public function requestedAddressFields(): array
+    {
+        $fields = [
+            'country' => ['required' => true],
+            'region'  => ['required' => true],
+            'city'    => ['required' => true]
+        ];
+
+        $fields['street'] = [];
+
+        return $fields;
     }
 }

@@ -5,10 +5,11 @@
  * @license Webasyst
  */
 return [
+    'variant_name'     => ['value' => 'Доставка за город'],
     'field_name'       => [
         'title'        => 'Название поля с расстоянием',
         'control_type' => waHtmlControl::INPUT,
-        'value'        => 'Расстояние от МКАД (км.)'
+        'value'        => 'Расстояние от города (км.)'
     ],
     'weight_limits'    => ['value' => ['min' => 0, 'max' => 0]],
     'price_limits'     => ['value' => ['min' => 0, 'max' => 0]],
