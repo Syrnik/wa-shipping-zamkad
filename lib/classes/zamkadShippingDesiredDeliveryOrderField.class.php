@@ -47,7 +47,7 @@ class zamkadShippingDesiredDeliveryOrderField
         $field = [
             'value'        => $this->extractValuesFromOrder(),
             'control_type' => waHtmlControl::DATETIME,
-            'title'        => $this->plugin->_w('Preferred delivery time'),
+            'title'        => 'Желаемое время доставки',
             'params'       => [
                 'autocomlpete' => false,
                 'date'         => $setting['date'] ? $days_from_now : null,
