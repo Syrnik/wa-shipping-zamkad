@@ -20,6 +20,8 @@ class zamkadShipping extends waShipping
      */
     protected function calculate()
     {
+        if ($this->isOrderWeightExceedsLimit() || $this->isOrderCostExceedsLimit()) return false;
+
         $delivery_variant = [
             'name'     => $this->variant_name ?: 'Доставка за город',
             'currency' => 'RUB'
@@ -352,5 +354,30 @@ class zamkadShipping extends waShipping
         if ($this->street_field === 'required') $fields['street']['required'] = true;
 
         return $fields;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isOrderWeightExceedsLimit(): bool
+    {
+        $weight = round(max(0, (float)$this->getTotalWeight()), 3);
+
+        if ($this->weight_limits['min'] && ($weight < $this->weight_limits['min'])) return true;
+        if ($this->weight_limits['max'] && ($weight > $this->weight_limits['max'])) return true;
+
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isOrderCostExceedsLimit(): bool
+    {
+        $order_cost = max(0, round((float)$this->getTotalPrice(), 2));
+        if ($this->price_limits['min'] && ($order_cost < $this->price_limits['min'])) return true;
+        if ($this->price_limits['max'] && ($order_cost > $this->price_limits['max'])) return true;
+
+        return false;
     }
 }
