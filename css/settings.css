@@ -54,3 +54,16 @@
   background-color: #fcc;
   border-color: #bc8f8f;
 }
+#shipping-zamkad-settings-block .validated.input+span.validity {
+  padding-left: 5px;
+}
+#shipping-zamkad-settings-block .validated.input:invalid+span.validity:after {
+  color: #f00;
+  font-weight: bold;
+  content: '✖';
+}
+#shipping-zamkad-settings-block .validated.input:valid+span.validity:after {
+  color: #008000;
+  font-weight: bold;
+  content: '✓';
+}

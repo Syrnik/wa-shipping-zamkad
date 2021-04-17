@@ -4,6 +4,7 @@
     <weight-limits v-model="setting.weight_limits" :ns="info.namespace" />
     <price-limits v-model="setting.price_limits" :ns="info.namespace" />
     <costs-table v-model="setting.km_table" :ns="addns('km_table', info.namespace)" />
+    <delivery-date name="Дата доставки" :ns="addns('delivery_date', info.namespace)" v-model="setting.delivery_date" />
     <date-time-custom-fields-toggle v-model="setting.desired_delivery" :ns="addns('desired_delivery', info.namespace)" />
     <timeframes v-model="setting.timeframes" :ns="addns('timeframes', info.namespace)" />
     <dates class="holidays" name="Дополнительные выходные" v-model="setting.holidays" :ns="addns('holidays', info.namespace)" />
@@ -19,6 +20,7 @@ import CostsTable from "./components/settings-app/costs-table.vue";
 import Timeframes from "./components/settings-app/timeframes.vue";
 import Dates from "./components/settings-app/dates.vue";
 import DateTimeCustomFieldsToggle from "./components/settings-app/date-time-custom-fields-toggle.vue";
+import DeliveryDate from "./components/settings-app/delivery-date.vue";
 
 export default {
   props: {
@@ -30,6 +32,8 @@ export default {
       setting: this.settings
     }
   },
-  components: {DateTimeCustomFieldsToggle, Dates, Timeframes, CostsTable, PriceLimits, WeightLimits, FieldName}
+  components: {
+    DeliveryDate,
+    DateTimeCustomFieldsToggle, Dates, Timeframes, CostsTable, PriceLimits, WeightLimits, FieldName}
 }
 </script>

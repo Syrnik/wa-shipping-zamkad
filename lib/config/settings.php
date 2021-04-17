@@ -13,6 +13,7 @@ return [
     'weight_limits'    => ['value' => ['min' => 0, 'max' => 0]],
     'price_limits'     => ['value' => ['min' => 0, 'max' => 0]],
     'km_table'         => ['value' => [['base' => 0, 'to' => 1, 'price' => 0.0]]],
+    'delivery_date'    => ['value' => ['show' => true, 'interval' => '0']],
     'desired_delivery' => ['value' => ['date' => false, 'interval' => false]],
     'timeframes'       => ['value' => [
         [

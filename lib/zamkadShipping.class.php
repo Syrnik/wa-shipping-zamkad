@@ -172,6 +172,9 @@ class zamkadShipping extends waShipping
                 case 'desired_delivery':
                     $value = ['date' => (bool)($value['date'] ?? false), 'interval' => (bool)($value['interval'] ?? false)];
                     break;
+                case 'delivery_date':
+                    $value = ['show' => (bool)($value['show'] ?? false), 'interval' => trim((string)($value['interval'] ?? ''))];
+                    break;
             }
             $settings[$setting] = $value;
         }
@@ -186,5 +189,45 @@ class zamkadShipping extends waShipping
     public function getPackageProperty($property)
     {
         return parent::getPackageProperty($property);
+    }
+
+    /**
+     * @return DateTime[]|null
+     */
+    public function getDeliveryDates(): array
+    {
+        $departure_datetime = $this->getPackageProperty('departure_datetime');
+        if (!$departure_datetime) {
+            $departure_datetime = 'now';
+        }
+
+        $timezone = $this->getPackageProperty('shop_time_zone');
+        $timezone = new DateTimeZone($timezone ?: date_default_timezone_get());
+
+        try {
+            $departure_datetime = new DateTime($departure_datetime ?: 'now', $timezone);
+        } catch (Exception $e) {
+            $departure_datetime = date_create();
+        }
+
+        $setting = $this->delivery_date;
+        if ($setting['interval']) {
+            $user_offsets = explode('-', $setting['interval']);
+            if ($user_offsets) {
+                array_walk($user_offsets, function (&$v) {
+                    $v = trim($v);
+                    $v = max(0, (int)$v);
+                });
+                $user_offsets = array_unique($user_offsets);
+                sort($user_offsets, SORT_NUMERIC);
+            } else $user_offsets = [0];
+        } else $user_offsets = [0];
+
+        return array_map(function ($o) use ($departure_datetime) {
+            $date = clone $departure_datetime;
+            if ($o) $date->modify("+$o days");
+            return $date;
+        }, $user_offsets);
+
     }
 }

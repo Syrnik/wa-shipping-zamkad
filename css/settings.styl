@@ -58,3 +58,18 @@
     .vue-dates-list > li
       background-color #fcc
       border-color rosybrown
+
+  .validated.input
+    &+span.validity
+      padding-left 5px
+
+    &:invalid+span.validity:after
+      color: red
+      font-weight bold
+      content '✖'
+
+    &:valid+span.validity:after
+      color green
+      font-weight bold
+      content '✓'
+

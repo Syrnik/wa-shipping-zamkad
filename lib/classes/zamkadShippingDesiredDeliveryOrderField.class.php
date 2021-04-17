@@ -20,6 +20,9 @@ class zamkadShippingDesiredDeliveryOrderField
     /** @var null|array */
     protected $_schedule;
 
+    /** @var null|int */
+    protected $_start_time;
+
     /**
      * zamkadShippingDesiredDeliveryOrderField constructor.
      * @param zamkadShipping $plugin
@@ -40,7 +43,7 @@ class zamkadShippingDesiredDeliveryOrderField
         $setting = $this->plugin->getSettings('desired_delivery');
         if (!($setting['date'] ?? false) && !($setting['interval'] ?? false)) return [];
 
-        $days_from_now = (int)max(0, round(($this->getStartTime() - time() / 24 * 3600)));
+        $days_from_now = (int)max(0, ($this->getStartTime() - time()) / (24 * 3600));
         $field = [
             'value'        => $this->extractValuesFromOrder(),
             'control_type' => waHtmlControl::DATETIME,
@@ -83,7 +86,7 @@ class zamkadShippingDesiredDeliveryOrderField
         ];
 
         $i_from = sprintf('%02d:%02d', $timeframe['from_hour'], $timeframe['from_minutes'] ?: 0);
-        $i_to = sprintf('%02d:%02d', $timeframe['to_hour'], $timeframe['to_minutes'] ?: 0 );
+        $i_to = sprintf('%02d:%02d', $timeframe['to_hour'], $timeframe['to_minutes'] ?: 0);
         list($interval['from'], $interval['from_m']) = explode(':', $i_from, 2);
         list($interval['to'], $interval['to_m']) = explode(':', $i_to, 2);
 
@@ -142,14 +145,14 @@ class zamkadShippingDesiredDeliveryOrderField
     /**
      * Timestamp когда будет готово к доставке
      * @return int
-     * @todo Учитывать настройки шопа и настройки из плагина
      *
      */
     protected function getStartTime(): int
     {
-        $start_time = time();
+        if (!$this->_start_time)
+            $this->_start_time = $this->plugin->getDeliveryDates()[0]->getTimestamp();
 
-        return $start_time;
+        return $this->_start_time;
     }
 
     /**
