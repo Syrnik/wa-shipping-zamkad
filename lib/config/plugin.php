@@ -7,7 +7,14 @@
 return array(
     'name'                  => 'Доставка с оплатой за расстояние',
     'description'           => 'Стоимость доставки зависит от расстояния в километрах',
-    'img'                   => 'img/zamkad.png',
+    'icon'                  => [
+        16 => 'img/icon-16.png',
+        24 => 'img/icon-24.png',
+        32 => 'img/icon-32.png',
+        48 => 'img/icon-48.png',
+        64 => 'img/icon-64.png',
+    ],
+    'logo'                  => 'img/logo-60-32.png',
     'version'               => '1.0.0',
     'vendor'                => '670917',
     'services_by_type'      => true,
