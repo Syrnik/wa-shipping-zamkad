@@ -16,39 +16,6 @@ class zamkadShipping extends waShipping
     protected $_typecasted_settings;
 
     /**
-     * @return bool|string|array
-     */
-    protected function calculate()
-    {
-        if ($this->isOrderWeightExceedsLimit() || $this->isOrderCostExceedsLimit()) return false;
-
-        $delivery_variant = [
-            'name'     => $this->variant_name ?: 'Доставка за город',
-            'currency' => 'RUB'
-        ];
-
-        if ($this->getSelectedServiceId() === null) $delivery_variant += $this->getMinMaxRates();
-        else {
-            $params = (array)$this->getPackageProperty('shipping_params');
-            $distance = ifset($params['zamkad_distance']);
-            if (is_string($distance)) {
-                $distance = trim($distance);
-                if (!strlen($distance)) $distance = null;
-            }
-            if ($distance !== null) $distance = (int)max(1, (int)$distance);
-            if ($distance && (int)$distance) {
-                if (($rate = $this->calcByRule($distance)) !== null)
-                    $delivery_variant += ['rate' => $rate];
-                else $delivery_variant += ['rate' => null, 'comment' => 'Доставка на указанное расстояние невозможна'];
-            } else {
-                $delivery_variant += ['rate' => null, 'comment' => 'Укажите расстояние в км.'];
-            }
-        }
-
-        return ['zamkad' => $delivery_variant];
-    }
-
-    /**
      * @return string
      */
     public function allowedCurrency(): string
@@ -91,28 +58,6 @@ class zamkadShipping extends waShipping
             $fields['desired_delivery'] = $desired_delivery_field;
 
         return $fields;
-    }
-
-    /**
-     * @param array $params
-     * @return string
-     * @throws SmartyException
-     * @throws waException
-     */
-    public function getSettingsHTML($params = array()): string
-    {
-        $settings = $this->getSettings();
-        $info = static::info($this->id);
-        $info['namespace'] = $params['namespace'] ?? '';
-        $info['action_url'] = [
-            'countries' => $this->getInteractionUrl('countries', 'geography'),
-            'regions'   => $this->getInteractionUrl('regions', 'geography')
-        ];
-
-        $view = wa()->getView();
-        $view->assign(compact('settings', 'info'));
-
-        return $view->fetch($this->path . '/templates/settings.html');
     }
 
     /**
@@ -213,12 +158,25 @@ class zamkadShipping extends waShipping
     }
 
     /**
-     * @param string $property
-     * @return float|int|mixed|null
+     * @param array $params
+     * @return string
+     * @throws SmartyException
+     * @throws waException
      */
-    public function getPackageProperty($property)
+    public function getSettingsHTML($params = array()): string
     {
-        return parent::getPackageProperty($property);
+        $settings = $this->getSettings();
+        $info = static::info($this->id);
+        $info['namespace'] = $params['namespace'] ?? '';
+        $info['action_url'] = [
+            'countries' => $this->getInteractionUrl('countries', 'geography'),
+            'regions'   => $this->getInteractionUrl('regions', 'geography')
+        ];
+
+        $view = wa()->getView();
+        $view->assign(compact('settings', 'info'));
+
+        return $view->fetch($this->path . '/templates/settings.html');
     }
 
     /**
@@ -261,91 +219,6 @@ class zamkadShipping extends waShipping
 
     }
 
-    /**
-     * @param int $distance
-     * @return array|null
-     */
-    protected function findPriceRule(int $distance): ?array
-    {
-        $table = $this->km_table;
-        $last = end($table);
-        if ($distance > $last['to']) return null;
-
-        $rule = [];
-        foreach ($table as $row) {
-            if ($row['to'] < $distance) continue;
-            else {
-                $rule = $row;
-                break;
-            }
-        }
-
-        return $rule ?: null;
-    }
-
-    /**
-     * Хак, чтобы в Shop-Script 8.0 .... 8.4 тоже получать выбранный пункт
-     *
-     * @return string|null
-     */
-    public function getSelectedServiceId(): ?string
-    {
-        if (($service_id = parent::getSelectedServiceId()) !== null) return $service_id;
-
-        $shipping_params = $this->getPackageProperty('shipping_params');
-
-        if (is_array($shipping_params)) {
-            $variant_id = ifset($shipping_params, 'service', 'variant_id', null);
-            if ($variant_id === null) return null;
-
-            if (preg_match('/^\d+\..*/', $variant_id) && substr($variant_id, 0, strlen($this->key) + 1) == "{$this->key}.")
-                return $variant_id;
-
-        }
-
-        return null;
-    }
-
-    /**
-     * @param int $distance
-     * @return float|null
-     */
-    public function calcByRule(int $distance): ?float
-    {
-        $rule = $this->findPriceRule($distance);
-        if ($rule === null) return null;
-
-        return round(max(0, $rule['base'] + $distance * $rule['price']), 2);
-    }
-
-    /**
-     * @return array
-     */
-    protected function getMinMaxRates(): array
-    {
-        $table = $this->km_table;
-        $first = reset($table);
-        $last = array_pop($table);
-        if ($table) $pre_last = array_pop($table);
-        else $pre_last = ['to' => 0];
-
-        $rate[] = $first['base'] ? max(0, round($first['base'] + $first['price'], 2)) : 0;
-        $rate[] = round(max(0, $last['base'] + ($last['to'] - $pre_last['to']) * $last['price']));
-
-        $rate = array_unique($rate);
-
-        if (count($rate) > 1) {
-            sort($rate, SORT_NUMERIC);
-            return [
-//            'rate'     => $min_rate,
-                'rate'     => $rate,
-                'rate_min' => $rate[0],
-                'rate_max' => $rate[1]
-            ];
-        } else
-            return ['rate' => $rate[0]];
-    }
-
     public function requestedAddressFields(): array
     {
         $fields = [
@@ -358,31 +231,6 @@ class zamkadShipping extends waShipping
         if ($this->street_field === 'required') $fields['street']['required'] = true;
 
         return $fields;
-    }
-
-    /**
-     * @return bool
-     */
-    protected function isOrderWeightExceedsLimit(): bool
-    {
-        $weight = round(max(0, (float)$this->getTotalWeight()), 3);
-
-        if ($this->weight_limits['min'] && ($weight < $this->weight_limits['min'])) return true;
-        if ($this->weight_limits['max'] && ($weight > $this->weight_limits['max'])) return true;
-
-        return false;
-    }
-
-    /**
-     * @return bool
-     */
-    protected function isOrderCostExceedsLimit(): bool
-    {
-        $order_cost = max(0, round((float)$this->getTotalPrice(), 2));
-        if ($this->price_limits['min'] && ($order_cost < $this->price_limits['min'])) return true;
-        if ($this->price_limits['max'] && ($order_cost > $this->price_limits['max'])) return true;
-
-        return false;
     }
 
     /**
@@ -417,6 +265,159 @@ class zamkadShipping extends waShipping
         if (strlen($setting['region'])) $allowed['region'] = $setting['region'];
 
         return [$allowed];
+    }
+
+    /**
+     * @return bool|string|array
+     */
+    protected function calculate()
+    {
+        if ($this->isOrderWeightExceedsLimit() || $this->isOrderCostExceedsLimit()) return false;
+
+        $delivery_variant = [
+            'currency' => 'RUB'
+        ];
+
+        if ($this->variant_name) $delivery_variant['name'] = $this->variant_name;
+
+        if ($this->getSelectedServiceId() === null) $delivery_variant += $this->getMinMaxRates();
+        else {
+            $params = (array)$this->getPackageProperty('shipping_params');
+            $distance = ifset($params['zamkad_distance']);
+            if (is_string($distance)) {
+                $distance = trim($distance);
+                if (!strlen($distance)) $distance = null;
+            }
+            if ($distance !== null) $distance = (int)max(1, (int)$distance);
+            if ($distance && (int)$distance) {
+                if (($rate = $this->calcByRule($distance)) !== null)
+                    $delivery_variant += ['rate' => $rate];
+                else $delivery_variant += ['rate' => null, 'comment' => 'Доставка на указанное расстояние невозможна'];
+            } else {
+                $delivery_variant += ['rate' => null, 'comment' => 'Укажите расстояние в км.'];
+            }
+        }
+
+        return [$delivery_variant];
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isOrderWeightExceedsLimit(): bool
+    {
+        $weight = round(max(0, (float)$this->getTotalWeight()), 3);
+
+        if ($this->weight_limits['min'] && ($weight < $this->weight_limits['min'])) return true;
+        if ($this->weight_limits['max'] && ($weight > $this->weight_limits['max'])) return true;
+
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isOrderCostExceedsLimit(): bool
+    {
+        $order_cost = max(0, round((float)$this->getTotalPrice(), 2));
+        if ($this->price_limits['min'] && ($order_cost < $this->price_limits['min'])) return true;
+        if ($this->price_limits['max'] && ($order_cost > $this->price_limits['max'])) return true;
+
+        return false;
+    }
+
+    /**
+     * Хак, чтобы в Shop-Script 8.0 .... 8.4 тоже получать выбранный пункт
+     *
+     * @return string|null
+     */
+    public function getSelectedServiceId(): ?string
+    {
+        if (($service_id = parent::getSelectedServiceId()) !== null) return $service_id;
+
+        $shipping_params = $this->getPackageProperty('shipping_params');
+
+        if (is_array($shipping_params)) {
+            $variant_id = ifset($shipping_params, 'service', 'variant_id', null);
+            if ($variant_id === null) return null;
+
+            if (preg_match('/^\d+\..*/', $variant_id) && substr($variant_id, 0, strlen($this->key) + 1) == "{$this->key}.")
+                return $variant_id;
+
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $property
+     * @return float|int|mixed|null
+     */
+    public function getPackageProperty($property)
+    {
+        return parent::getPackageProperty($property);
+    }
+
+    /**
+     * @return array
+     */
+    protected function getMinMaxRates(): array
+    {
+        $table = $this->km_table;
+        $first = reset($table);
+        $last = array_pop($table);
+        if ($table) $pre_last = array_pop($table);
+        else $pre_last = ['to' => 0];
+
+        $rate[] = $first['base'] ? max(0, round($first['base'] + $first['price'], 2)) : 0;
+        $rate[] = round(max(0, $last['base'] + ($last['to'] - $pre_last['to']) * $last['price']));
+
+        $rate = array_unique($rate);
+
+        if (count($rate) > 1) {
+            sort($rate, SORT_NUMERIC);
+            return [
+//            'rate'     => $min_rate,
+                'rate'     => $rate,
+                'rate_min' => $rate[0],
+                'rate_max' => $rate[1]
+            ];
+        } else
+            return ['rate' => $rate[0]];
+    }
+
+    /**
+     * @param int $distance
+     * @return float|null
+     */
+    public function calcByRule(int $distance): ?float
+    {
+        $rule = $this->findPriceRule($distance);
+        if ($rule === null) return null;
+
+        return round(max(0, $rule['base'] + $distance * $rule['price']), 2);
+    }
+
+    /**
+     * @param int $distance
+     * @return array|null
+     */
+    protected function findPriceRule(int $distance): ?array
+    {
+        $table = $this->km_table;
+        $last = end($table);
+        if ($distance > $last['to']) return null;
+
+        $rule = [];
+        foreach ($table as $row) {
+            if ($row['to'] < $distance) continue;
+            else {
+                $rule = $row;
+                break;
+            }
+        }
+
+        return $rule ?: null;
     }
 
 }

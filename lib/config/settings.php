@@ -5,7 +5,7 @@
  * @license Webasyst
  */
 return [
-    'variant_name'     => ['value' => 'Доставка за город'],
+    'variant_name'     => ['value' => ''],
     'field_name'       => [
         'title'        => 'Название поля с расстоянием',
         'control_type' => waHtmlControl::INPUT,
