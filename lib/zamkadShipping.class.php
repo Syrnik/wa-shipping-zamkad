@@ -29,6 +29,10 @@ class zamkadShipping extends waShipping
         else {
             $params = (array)$this->getPackageProperty('shipping_params');
             $distance = ifset($params['zamkad_distance']);
+            if (is_string($distance)) {
+                $distance = trim($distance);
+                if (!strlen($distance)) $distance = null;
+            }
             if ($distance !== null) $distance = (int)max(1, (int)$distance);
             if ($distance && (int)$distance) {
                 if (($rate = $this->calcByRule($distance)) !== null)
@@ -319,7 +323,7 @@ class zamkadShipping extends waShipping
         if ($table) $pre_last = array_pop($table);
         else $pre_last = ['to' => 0];
 
-        $rate[] = $first['base'] ? max(0, round($first['base'], 2)) : 0;
+        $rate[] = $first['base'] ? max(0, round($first['base'] + $first['price'], 2)) : 0;
         $rate[] = round(max(0, $last['base'] + ($last['to'] - $pre_last['to']) * $last['price']));
 
         $rate = array_unique($rate);
@@ -344,7 +348,8 @@ class zamkadShipping extends waShipping
             'city'    => ['required' => true]
         ];
 
-        $fields['street'] = [];
+        if ($this->street_field !== 'no') $fields['street'] = [];
+        if ($this->street_field === 'required') $fields['street']['required'] = true;
 
         return $fields;
     }
