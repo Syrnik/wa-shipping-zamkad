@@ -11,6 +11,7 @@ return [
         'control_type' => waHtmlControl::INPUT,
         'value'        => 'Расстояние от города (км.)'
     ],
+    'geography_limits' => ['value' => ['country' => '', 'region' => '']],
     'weight_limits'    => ['value' => ['min' => 0, 'max' => 0]],
     'price_limits'     => ['value' => ['min' => 0, 'max' => 0]],
     'km_table'         => ['value' => [['base' => 0, 'to' => 1, 'price' => 0.0]]],

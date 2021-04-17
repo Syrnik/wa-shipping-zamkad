@@ -104,6 +104,10 @@ class zamkadShipping extends waShipping
         $settings = $this->getSettings();
         $info = static::info($this->id);
         $info['namespace'] = $params['namespace'] ?? '';
+        $info['action_url'] = [
+            'countries' => $this->getInteractionUrl('countries', 'geography'),
+            'regions'   => $this->getInteractionUrl('regions', 'geography')
+        ];
 
         $view = wa()->getView();
         $view->assign(compact('settings', 'info'));
@@ -379,5 +383,25 @@ class zamkadShipping extends waShipping
         if ($this->price_limits['max'] && ($order_cost > $this->price_limits['max'])) return true;
 
         return false;
+    }
+
+    /**
+     * Хак, чтобы json-контроллерам тоже достался экземпляр плагина
+     * А если указан ключ конкретной конфигурации, так чтоб не просто экземпляр, а экземпляр указанной конфигурации
+     *
+     * @param string $module
+     * @param string $action
+     * @return waController|waJsonActions|waJsonController|waSystemPluginAction|waSystemPluginActions
+     * @throws waException
+     */
+    public function getController($module = 'backend', $action = 'Default')
+    {
+        $controller = parent::getController($module, $action);
+        if (method_exists($controller, 'setPlugin')) {
+            $key = waRequest::get('plugin_key');
+            $controller->setPlugin($key ? waShipping::factory($this->id, $key, $this->app_id) : $this);
+        }
+
+        return $controller;
     }
 }

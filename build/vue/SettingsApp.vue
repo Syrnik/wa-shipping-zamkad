@@ -2,6 +2,8 @@
   <div style="margin: 0 2px" id="shipping-zamkad-settings-block">
     <field-name v-model="setting.field_name" :ns="info.namespace"/>
     <variant-name v-model="setting.variant_name" :ns="info.namespace"/>
+    <geography-limits :urls="info.action_url" v-model="setting.geography_limits" name="Регион доставки"
+                      :ns="addns('geography_limits', info.namespace)"/>
     <weight-limits v-model="setting.weight_limits" :ns="info.namespace"/>
     <price-limits v-model="setting.price_limits" :ns="info.namespace"/>
     <costs-table v-model="setting.km_table" :ns="addns('km_table', info.namespace)"/>
@@ -27,6 +29,7 @@ import DateTimeCustomFieldsToggle from "./components/settings-app/date-time-cust
 import DeliveryDate from "./components/settings-app/delivery-date.vue";
 import VariantName from "./components/settings-app/variant-name.vue";
 import StreetField from "./components/settings-app/street-field.vue";
+import GeographyLimits from "./components/settings-app/geography-limits.vue";
 
 export default {
   props: {
@@ -39,7 +42,7 @@ export default {
     }
   },
   components: {
-    StreetField, VariantName, DeliveryDate,
+    GeographyLimits, StreetField, VariantName, DeliveryDate,
     DateTimeCustomFieldsToggle, Dates, Timeframes, CostsTable, PriceLimits, WeightLimits, FieldName
   }
 }
