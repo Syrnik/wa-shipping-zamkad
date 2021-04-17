@@ -280,15 +280,9 @@ class zamkadShipping extends waShipping
 
         if ($this->variant_name) $delivery_variant['name'] = $this->variant_name;
 
-        if ($this->getSelectedServiceId() === null) $delivery_variant += $this->getMinMaxRates();
+        $distance = $this->getDistanceFromParams();
+        if (($this->getSelectedServiceId() === null) && !$distance) $delivery_variant += $this->getMinMaxRates();
         else {
-            $params = (array)$this->getPackageProperty('shipping_params');
-            $distance = ifset($params['zamkad_distance']);
-            if (is_string($distance)) {
-                $distance = trim($distance);
-                if (!strlen($distance)) $distance = null;
-            }
-            if ($distance !== null) $distance = (int)max(1, (int)$distance);
             if ($distance && (int)$distance) {
                 if (($rate = $this->calcByRule($distance)) !== null)
                     $delivery_variant += ['rate' => $rate];
@@ -434,4 +428,19 @@ class zamkadShipping extends waShipping
         return $rule ?: null;
     }
 
+    /**
+     * @return int|null
+     */
+    protected function getDistanceFromParams(): ?int
+    {
+        $params = (array)$this->getPackageProperty('shipping_params');
+        $distance = ifset($params['zamkad_distance']);
+        if (is_string($distance)) {
+            $distance = trim($distance);
+            if (!strlen($distance)) $distance = null;
+        }
+        if ($distance !== null) $distance = (int)max(1, (int)$distance);
+
+        return $distance;
+    }
 }
