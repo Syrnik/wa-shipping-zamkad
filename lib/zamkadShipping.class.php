@@ -299,13 +299,17 @@ class zamkadShipping extends waShipping
         }
 
         $est_delivery = $this->delivery_date;
-        if ($est_delivery['show'] && ($dates = $this->getDeliveryDates())) {
-            $delivery_variant['est_delivery'] = waDateTime::format('humandate', $dates[0]->getTimestamp(), $dates[0]->getTimezone()->getName());
-            if (count($dates) > 1) {
-                $delivery_variant['est_delivery'] .= " " . waDateTime::format('humandate', $dates[1]->getTimestamp(), $dates[1]->getTimezone()->getName());
-                $delivery_variant['delivery_date'] = [$dates[0]->format('Y-m-d') . " 00:00:00", $dates[1]->format('Y-m-d') . " 00:00:00"];
-            } else $delivery_variant['delivery_date'] = $dates[0]->format('Y-m-d') . " 00:00:00";
+        try {
+            if ($est_delivery['show'] && ($dates = $this->getDeliveryDates())) {
+                $delivery_variant['est_delivery'] = waDateTime::format('humandate', $dates[0]->getTimestamp(), $dates[0]->getTimezone()->getName());
+                if (count($dates) > 1) {
+                    $delivery_variant['est_delivery'] .= " " . waDateTime::format('humandate', $dates[1]->getTimestamp(), $dates[1]->getTimezone()->getName());
+                    $delivery_variant['delivery_date'] = [$dates[0]->format('Y-m-d') . " 00:00:00", $dates[1]->format('Y-m-d') . " 00:00:00"];
+                } else $delivery_variant['delivery_date'] = $dates[0]->format('Y-m-d') . " 00:00:00";
 
+            }
+        } catch (waException $e) {
+            unset($delivery_variant['est_delivery']);
         }
 
         return [$delivery_variant];
