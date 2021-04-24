@@ -187,7 +187,7 @@ class zamkadShipping extends waShipping
         $departure_datetime = $this->getPackageProperty('departure_datetime');
         if (!$departure_datetime) {
             $departure_datetime = 'now';
-        }
+        } else $departure_datetime = (string)$departure_datetime;
 
         $timezone = $this->getPackageProperty('shop_time_zone');
         $timezone = new DateTimeZone($timezone ?: date_default_timezone_get());
@@ -435,6 +435,10 @@ class zamkadShipping extends waShipping
     {
         $params = (array)$this->getPackageProperty('shipping_params');
         $distance = ifset($params['zamkad_distance']);
+//        if (is_null($distance) && (wa()->getEnv() === 'backend')) {
+//            $params = waRequest::post('shipping_' . $this->key);
+//            if (is_array($params)) $distance = ifset($params['zamkad_distance']);
+//        }
         if (is_string($distance)) {
             $distance = trim($distance);
             if (!strlen($distance)) $distance = null;
