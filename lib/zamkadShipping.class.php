@@ -51,7 +51,7 @@ class zamkadShipping extends waShipping
             'description'  => 'Плата за каждый полный и неполный км.',
             'field_type'   => 'number',
             'min'          => 1,
-            'max'          => $last['to'] ?: 1,
+            'max'          => ($last['to'] > 1 ? $last['to'] : 1),
             'step'         => 1,
             'required'     => 1,
             'data'         => ['affects-rate' => true]
