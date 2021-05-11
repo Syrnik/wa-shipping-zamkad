@@ -41,6 +41,9 @@ class zamkadShipping extends waShipping
         $fields = parent::customFields($order);
         $shipping_params = (array)$order->shipping_params;
 
+        $km_table = $this->km_table;
+        $last = end($km_table);
+
         $fields['zamkad_distance'] = [
             'control_type' => waHtmlControl::INPUT,
             'value'        => $shipping_params['zamkad_distance'] ?? '',
@@ -48,7 +51,7 @@ class zamkadShipping extends waShipping
             'description'  => 'Плата за каждый полный и неполный км.',
             'field_type'   => 'number',
             'min'          => 1,
-            'max'          => 150,
+            'max'          => ($last['to'] > 1 ? $last['to'] : 1),
             'step'         => 1,
             'required'     => 1,
             'data'         => ['affects-rate' => true]
