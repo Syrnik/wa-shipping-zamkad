@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Serge Rodovnichenko <serge@syrnik.com>
- * @copyright Serge Rodovnichenko, 2021
+ * @copyright Serge Rodovnichenko, 2021-2022
  * @license Webasyst
  */
 
@@ -9,6 +9,14 @@ declare(strict_types=1);
 
 /**
  * Main plugin class
+ *
+ * @property-read  array|string|null $delivery_date
+ * @property-read  string $street_field
+ * @property-read  array $geography_limits
+ * @property-read  string $variant_name
+ * @property-read  array{min:float|null, max:float|null} $weight_limits
+ * @property-read  array{min:float|null, max:float|null} $price_limits
+ * @property-read  array $km_table
  */
 class zamkadShipping extends waShipping
 {
@@ -51,9 +59,9 @@ class zamkadShipping extends waShipping
             'description'  => 'Плата за каждый полный и неполный км.',
             'field_type'   => 'number',
             'min'          => 1,
-            'max'          => ($last['to'] > 1 ? $last['to'] : 1),
+            'max'          => max($last['to'], 1),
             'step'         => 1,
-            'required'     => 1,
+//            'required'     => 1,
             'data'         => ['affects-rate' => true]
         ];
 
@@ -271,7 +279,7 @@ class zamkadShipping extends waShipping
     }
 
     /**
-     * @return bool|string|array
+     * @return array|bool
      */
     protected function calculate()
     {
@@ -286,7 +294,7 @@ class zamkadShipping extends waShipping
         $distance = $this->getDistanceFromParams();
         if (($this->getSelectedServiceId() === null) && !$distance) $delivery_variant += $this->getMinMaxRates();
         else {
-            if ($distance && (int)$distance) {
+            if ($distance) {
                 if (($rate = $this->calcByRule($distance)) !== null)
                     $delivery_variant += ['rate' => $rate];
                 else $delivery_variant += ['rate' => null, 'comment' => 'Доставка на указанное расстояние невозможна'];
@@ -352,9 +360,8 @@ class zamkadShipping extends waShipping
             $variant_id = ifset($shipping_params, 'service', 'variant_id', null);
             if ($variant_id === null) return null;
 
-            if (preg_match('/^\d+\..*/', $variant_id) && substr($variant_id, 0, strlen($this->key) + 1) == "{$this->key}.")
+            if (preg_match('/^\d+\..*/', $variant_id) && substr($variant_id, 0, strlen($this->key) + 1) == "$this->key.")
                 return $variant_id;
-
         }
 
         return null;
