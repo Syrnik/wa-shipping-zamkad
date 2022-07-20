@@ -15,9 +15,11 @@ return array(
         64 => 'img/icon-64.png',
     ],
     'logo'                  => 'img/logo-60x32.png',
-    'version'               => '1.0.2',
+    'version'               => '1.0.3',
     'vendor'                => '670917',
     'services_by_type'      => true,
     'type'                  => waShipping::TYPE_TODOOR,
-    'backend_custom_fields' => true
+    'backend_custom_fields' => true,
+    'fractional_quantity'   => true,
+    'stock_units'           => true
 );
