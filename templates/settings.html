@@ -1,6 +1,6 @@
 <!--suppress JSNonASCIINames, NonAsciiCharacters -->
 <div id="zamkad-shipping-settings">
-    <h3>Загрузка настроек <i class="icon16 loading"></i></h3>
+    <h3>[`Загрузка настроек`] <i class="icon16 loading"></i></h3>
 </div>
 <script>
     $(function () {
@@ -14,7 +14,7 @@
                     defer.resolve();
                 })
                 .fail(function () {
-                    $('#pec-shipping-settings').append('<p class="red">Ошибка загрузки скрипта настроек.</p>');
+                    $('#pec-shipping-settings').append('<p class="red">[`Ошибка загрузки скрипта настроек.`]</p>');
                     defer.reject();
                 });
         })).done(function () {
