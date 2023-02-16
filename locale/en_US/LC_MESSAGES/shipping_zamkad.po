@@ -1,0 +1,163 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: wa-plugins/shipping/zamkad\n"
+"POT-Creation-Date: 2023-02-16 23:01+0300\n"
+"PO-Revision-Date: \n"
+"Last-Translator: wa-plugins/shipping/zamkad\n"
+"Language-Team: wa-plugins/shipping/zamkad\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: en_US\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: utf-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: .\n"
+
+msgid "Загрузка настроек"
+msgstr "Loading settings"
+
+msgid "Дополнительные выходные"
+msgstr "Additional days off"
+
+msgid "Дополнительные рабочие дни"
+msgstr "Additional working days"
+
+msgid "Регион доставки"
+msgstr "Delivery region"
+
+msgid "Дата доставки"
+msgstr "Delivery date"
+
+msgid "Расстояние"
+msgstr "Distance"
+
+msgid "Фикс. цена"
+msgstr "Fixed price"
+
+msgid "Цена за 1 км."
+msgstr "Price per 1 km."
+
+msgid "Добавить тариф"
+msgstr "Add a tariff"
+
+msgid "Запрашивать желаемую дату доставки"
+msgstr "Request the desired delivery date"
+
+msgid "Запрашивать желаемый интервал доставки"
+msgstr "Request the desired delivery interval"
+
+msgid "Поля даты и интервала доставки"
+msgstr "Delivery date and interval fields"
+
+msgid "Показывать ориентировочную дату доставки"
+msgstr "Show estimated delivery date"
+
+msgid "Укажите количество дней на доставку. Число или диапазон через тире. Например «1» — один день, т.е. доставка на следующий день, «1-2» — один или два дня, т.е. завтра-послезавтра"
+msgstr "Specify the number of days for delivery. A number or range separated by a dash. For example, \"1\" — one day, i.e. delivery the next day, \"1-2\" — one or two days, i.e. tomorrow-the day after tomorrow"
+
+msgid "Название поля с расстоянием"
+msgstr "Field name with distance"
+
+msgid "Расстояние от города (км.)"
+msgstr "Distance from the city (km.)"
+
+msgid "Доставка будет ограничена только выбранной страной или регионом страны"
+msgstr "Delivery will be limited only to the selected country or region of the country"
+
+msgid "Ограничения по географии"
+msgstr "Geographical restrictions"
+
+msgid "Ограничение по стоимости заказа"
+msgstr "Limit on the cost of the order"
+
+msgid "Ограничение по весу"
+msgstr "Weight limit"
+
+msgid "от"
+msgstr "from"
+
+msgid "до"
+msgstr "to"
+
+msgid "Поле адреса «Улица, дом, квартира»"
+msgstr "\"street\" input field"
+
+msgid "не запрашивать"
+msgstr "do not request"
+
+msgid "запрашивать"
+msgstr "request"
+
+msgid "требовать"
+msgstr "require"
+
+msgid "км."
+msgstr "km."
+
+msgid "кг."
+msgstr "kg."
+
+msgid "с"
+msgstr "from"
+
+msgid "Интервал доставки"
+msgstr "Delivery interval"
+
+msgid "Пн"
+msgstr "Mo"
+
+msgid "Вт"
+msgstr "Tu"
+
+msgid "Ср"
+msgstr "We"
+
+msgid "Чт"
+msgstr "Th"
+
+msgid "Пт"
+msgstr "Fr"
+
+msgid "Сб"
+msgstr "Sa"
+
+msgid "Вс"
+msgstr "Su"
+
+msgid "Доп. выходной"
+msgstr ""
+
+msgid "Доп. рабочий день"
+msgstr "Extra day off"
+
+msgid "Добавить интервал"
+msgstr "Add an interval"
+
+msgid "Доставка за город"
+msgstr "Delivery outside the city"
+
+msgid "Название варианта доставки"
+msgstr "Name of the delivery option"
+
+msgid "Закрыть"
+msgstr "Close"
+
+msgid "Выбрать"
+msgstr "Select"
+
+msgid "Ошибка загрузки скрипта настроек."
+msgstr "Error loading the settings script."
+
+msgid "Плата за каждый полный и неполный км."
+msgstr "Payment for each full and incomplete km."
+
+msgid "Укажите расстояние в км."
+msgstr "Specify the distance in km."
+
+msgid "Желаемое время доставки"
+msgstr "Desired delivery time"
+
+msgid "Доставка на указанное расстояние невозможна"
+msgstr "Delivery to the specified distance is not possible"

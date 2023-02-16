@@ -186,7 +186,8 @@ class zamkadShipping extends waShipping
         ];
 
         $view = wa()->getView();
-        $view->assign(compact('settings', 'info'));
+        $_zamkadPlugin = $this;
+        $view->assign(compact('settings', 'info', '_zamkadPlugin'));
 
         return $view->fetch($this->path . '/templates/settings.html');
     }

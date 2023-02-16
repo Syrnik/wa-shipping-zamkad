@@ -1,0 +1,151 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: wa-plugins/shipping/zamkad\n"
+"POT-Creation-Date: 2023-02-16 23:01+0300\n"
+"PO-Revision-Date: \n"
+"Last-Translator: wa-plugins/shipping/zamkad\n"
+"Language-Team: wa-plugins/shipping/zamkad\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+"X-Poedit-Language: ru_RU\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: utf-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: .\n"
+
+msgid "Загрузка настроек"
+msgstr ""
+
+msgid "Дополнительные выходные"
+msgstr ""
+
+msgid "Дополнительные рабочие дни"
+msgstr ""
+
+msgid "Регион доставки"
+msgstr ""
+
+msgid "Дата доставки"
+msgstr ""
+
+msgid "Расстояние"
+msgstr ""
+
+msgid "Фикс. цена"
+msgstr ""
+
+msgid "Цена за 1 км."
+msgstr ""
+
+msgid "Добавить тариф"
+msgstr ""
+
+msgid "Запрашивать желаемую дату доставки"
+msgstr ""
+
+msgid "Запрашивать желаемый интервал доставки"
+msgstr ""
+
+msgid "Поля даты и интервала доставки"
+msgstr ""
+
+msgid "Показывать ориентировочную дату доставки"
+msgstr ""
+
+msgid "Укажите количество дней на доставку. Число или диапазон через тире. Например «1» — один день, т.е. доставка на следующий день, «1-2» — один или два дня, т.е. завтра-послезавтра"
+msgstr ""
+
+msgid "Название поля с расстоянием"
+msgstr ""
+
+msgid "Расстояние от города (км.)"
+msgstr ""
+
+msgid "Доставка будет ограничена только выбранной страной или регионом страны"
+msgstr ""
+
+msgid "Ограничения по географии"
+msgstr ""
+
+msgid "Ограничение по стоимости заказа"
+msgstr ""
+
+msgid "Ограничение по весу"
+msgstr ""
+
+msgid "от"
+msgstr ""
+
+msgid "до"
+msgstr ""
+
+msgid "Поле адреса «Улица, дом, квартира»"
+msgstr ""
+
+msgid "не запрашивать"
+msgstr ""
+
+msgid "запрашивать"
+msgstr ""
+
+msgid "требовать"
+msgstr ""
+
+msgid "км."
+msgstr ""
+
+msgid "кг."
+msgstr ""
+
+msgid "с"
+msgstr ""
+
+msgid "Интервал доставки"
+msgstr ""
+
+msgid "Пн"
+msgstr ""
+
+msgid "Вт"
+msgstr ""
+
+msgid "Ср"
+msgstr ""
+
+msgid "Чт"
+msgstr ""
+
+msgid "Пт"
+msgstr ""
+
+msgid "Сб"
+msgstr ""
+
+msgid "Вс"
+msgstr ""
+
+msgid "Доп. выходной"
+msgstr ""
+
+msgid "Доп. рабочий день"
+msgstr ""
+
+msgid "Добавить интервал"
+msgstr ""
+
+msgid "Доставка за город"
+msgstr ""
+
+msgid "Название варианта доставки"
+msgstr ""
+
+msgid "Закрыть"
+msgstr ""
+
+msgid "Выбрать"
+msgstr ""
+
+msgid "Ошибка загрузки скрипта настроек."
+msgstr ""
