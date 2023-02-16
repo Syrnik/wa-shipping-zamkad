@@ -19,7 +19,7 @@
                   v-if="view.picker"
                   :highlighted="highlighted"
                   :disabled-dates="{to: new Date()}"
-                  :language="ru"
+                  :language="datepickerLocale"
                   @selected="toggleDate"></datepicker>
     </div>
   </wa-field>
@@ -28,7 +28,7 @@
 <script>
 import AddNs from '../wa-namespace'
 import Datepicker from 'vuejs-datepicker'
-import ru from 'vuejs-datepicker/dist/locale/translations/ru'
+import {en, ru, kk, uk} from 'vuejs-datepicker/dist/locale'
 import dateformat from 'dateformat'
 
 export default {
@@ -49,13 +49,18 @@ export default {
   data() {
     return {
       view: {picker: false},
-      ru: ru,
+      datepicker_translations: {ru: ru, en: en, kk: kk, uk: uk},
       selected_dates: this.value
     };
   },
   computed: {
     highlighted() {
       return {dates: this.selected_dates.sort().map(d => new Date(d)).filter(d => (d instanceof Date) && !isNaN(d))};
+    },
+    datepickerLocale() {
+      if (!window.$_syrnik_current_locale) return 'ru';
+      const loc = window.$_syrnik_current_locale.substring(0, 2);
+      return this.datepicker_translations[loc] ?? 'ru';
     }
   },
   methods: {
