@@ -1,12 +1,13 @@
 <?php
 /**
  * @author Serge Rodovnichenko <serge@syrnik.com>
- * @copyright Serge Rodovnichenko, 2021
+ * @copyright Serge Rodovnichenko, 2021-2023
  * @license Webasyst
  */
+
 return array(
-    'name'                  => _wp('Доставка с оплатой за расстояние'),
-    'description'           => _wp('Стоимость доставки зависит от расстояния в километрах'),
+    'name'                  => 'Доставка с оплатой за расстояние',
+    'description'           => 'Стоимость доставки зависит от расстояния в километрах',
     'icon'                  => [
         16 => 'img/icon-16.png',
         24 => 'img/icon-24.png',
