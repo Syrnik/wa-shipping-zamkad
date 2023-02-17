@@ -1,7 +1,7 @@
 <template>
   <wa-field :name="l10n('Валюта расчёта')">
     <div class="value">
-      <select @change="$emit('input', $event.value ? $event.value : $event)" :name="addns('currency', ns)">
+      <select @change="$emit('input', $event.target.value ? $event.target.value : $event)" :name="addns('currency', ns)">
         <option v-for="c in currencies" :value="c.code" :selected="setting===c.code">{{ c.name }} ({{ c.code }})</option>
       </select>
       <br>

@@ -53,7 +53,7 @@ export default {
   },
   computed: {
     selectedCurrency() {
-      if (this.info.currencies[setting.currency]) return this.info.currencies[setting.currency];
+      if (this.info.currencies[this.setting.currency]) return this.info.currencies[this.setting.currency];
       return null;
     }
   }
