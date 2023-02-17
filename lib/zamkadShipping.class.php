@@ -185,6 +185,30 @@ class zamkadShipping extends waShipping
             'regions'   => $this->getInteractionUrl('regions', 'geography')
         ];
 
+        $info['currencies'] = waCurrency::getAll('all');
+        array_walk($info['currencies'], function (&$v) {
+            return [
+                'code'      => $v['code'],
+                'name'      => $v['title'],
+                'sign'      => strip_tags($v['sign_html']),
+                'precision' => intval($v['precision'])];
+        });
+
+        if (class_exists('Collator')) {
+            $collator = new Collator(waLocale::getLocale());
+            $string_comparer = fn(string $str1, string $str2) => (int)$collator->compare($str1, $str2);
+        } else $string_comparer = fn(string $str1, string $str2) => mb_strtolower($str1, 'UTF-8') <=> mb_strtolower($str2, 'UTF-8');
+
+        usort($info['currencies'], function ($a, $b) use ($string_comparer) {
+            $a_fav = array_search($a['code'], ['RUB', 'USD', 'EUR', 'BYR', 'BYN', 'KZT', 'UAH']);
+            $b_fav = array_search($b['code'], ['RUB', 'USD', 'EUR', 'BYR', 'BYN', 'KZT', 'UAH']);
+            if (false === $a_fav) $a_fav = PHP_INT_MAX;
+            if (false === $b_fav) $b_fav = PHP_INT_MAX;
+
+            if ($a_fav === $b_fav) return $string_comparer($a['name'], $b['name']);
+            return $a_fav <=> $b_fav;
+        });
+
         $view = wa()->getView();
         $_zamkadPlugin = $this;
         $view->assign(compact('settings', 'info', '_zamkadPlugin'));
