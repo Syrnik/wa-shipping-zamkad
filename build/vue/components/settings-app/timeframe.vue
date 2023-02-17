@@ -1,11 +1,11 @@
 <template>
   <tr>
-    <td>с
+    <td>{{'с'|localized}}
       <input type="text" class="short" :name="addns('from_hour', ns)" v-model="fromHour" required>
       :
       <input type="text" class="short" :name="addns('from_minutes', ns)" v-model="fromMinutes" required>
     </td>
-    <td>до
+    <td>{{'до'|localized}}
       <input type="text" class="short" :name="addns('to_hour', ns)" v-model="toHour" required>
       :
       <input type="text" class="short" :name="addns('to_minutes', ns)" v-model="toMinutes" required>
@@ -53,8 +53,10 @@
 <script>
 import _toNumber from 'lodash.tonumber'
 import format from 'number-formatter'
+import WaL10n from "../wa-l10n";
 
 export default {
+  mixins:[WaL10n],
   props: {
     value: Object,
     ns: String,

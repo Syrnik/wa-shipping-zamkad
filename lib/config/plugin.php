@@ -1,9 +1,10 @@
 <?php
 /**
  * @author Serge Rodovnichenko <serge@syrnik.com>
- * @copyright Serge Rodovnichenko, 2021
+ * @copyright Serge Rodovnichenko, 2021-2023
  * @license Webasyst
  */
+
 return array(
     'name'                  => 'Доставка с оплатой за расстояние',
     'description'           => 'Стоимость доставки зависит от расстояния в километрах',

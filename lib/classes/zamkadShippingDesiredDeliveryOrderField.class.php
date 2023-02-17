@@ -47,7 +47,7 @@ class zamkadShippingDesiredDeliveryOrderField
         $field = [
             'value'        => $this->extractValuesFromOrder(),
             'control_type' => waHtmlControl::DATETIME,
-            'title'        => 'Желаемое время доставки',
+            'title'        => _wp('Желаемое время доставки'),
             'params'       => [
                 'autocomlpete' => false,
                 'date'         => $setting['date'] ? $days_from_now : null,
@@ -109,7 +109,7 @@ class zamkadShippingDesiredDeliveryOrderField
             $service_date = $stepwise_date->format('Y-m-d');
             $week_day = $stepwise_date->format('N');
 
-            /** является ли текущая дата ($service_date) дополнительным выходным днем */
+            /** Является ли текущая дата ($service_date) дополнительным выходным днем */
             $is_extra_holiday = in_array($service_date, $this->getSchedule()['holidays'], true);
             if (empty($timeframe['holidays']) && $is_extra_holiday) {
                 /** $days['holiday'] = 1, если выбрана галка "Доп. выходной" у текущего интервала в таблице "Интервалы доставки".
@@ -129,7 +129,7 @@ class zamkadShippingDesiredDeliveryOrderField
             if ($is_workday) {
                 $right_i = new DateTime("$service_date $i_to", $shop_time_zone);
                 if ($right_i < $start_tz) {
-                    /** интервал недоступен в этот день, если стартовая дата наступает позже даты текущей итерации */
+                    /** Интервал недоступен в этот день, если стартовая дата наступает позже даты текущей итерации */
                     continue;
                 }
                 $service_delivery_date = $service_date . ' ' . $i_from;
