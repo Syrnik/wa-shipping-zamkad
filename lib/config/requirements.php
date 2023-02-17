@@ -5,8 +5,7 @@
  * @license Webasyst
  */
 return [
-    'app.installer' => [
-        'strict'  => true,
-        'version' => '>=2.0'
-    ]
+    'app.installer' => ['version' => '>=2.5', 'strict' => true],
+    'php'           => ['version' => '>=7.4', 'strict' => true],
+    'php.intl'      => ['strict' => false],
 ];
