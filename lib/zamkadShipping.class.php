@@ -28,7 +28,8 @@ class zamkadShipping extends waShipping
      */
     public function allowedCurrency(): string
     {
-        return 'RUB';
+        $c = $this->getSettings('currency') ?? 'RUB';
+        return $this->getSettings('currency') ?? 'RUB';
     }
 
     /**
@@ -314,7 +315,7 @@ class zamkadShipping extends waShipping
         if ($this->isOrderWeightExceedsLimit() || $this->isOrderCostExceedsLimit()) return false;
 
         $delivery_variant = [
-            'currency' => 'RUB'
+            'currency' => $this->getSettings('currency') ?? 'RUB'
         ];
 
         if ($this->variant_name) $delivery_variant['name'] = $this->variant_name;
