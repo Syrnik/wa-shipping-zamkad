@@ -8,7 +8,7 @@
     <input :name="addns('max', addns('weight_limits', ns))" type="number" class="short numerical" min="0" step="1"
            v-model.number="setting.max" placeholder="∞"
            @input="$emit('input', setting)">
-    {{'кг.'|}}
+    {{'кг.'|localized}}
   </wa-field-simple>
 </template>
 
