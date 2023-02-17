@@ -6,8 +6,8 @@
     <geography-limits :urls="info.action_url" v-model="setting.geography_limits" :name="l10n('Регион доставки')"
                       :ns="addns('geography_limits', info.namespace)"/>
     <weight-limits v-model="setting.weight_limits" :ns="info.namespace"/>
-    <price-limits v-model="setting.price_limits" :ns="info.namespace"/>
-    <costs-table v-model="setting.km_table" :ns="addns('km_table', info.namespace)"/>
+    <price-limits v-model="setting.price_limits" :ns="info.namespace" :currency="selectedCurrency"/>
+    <costs-table v-model="setting.km_table" :ns="addns('km_table', info.namespace)" :currency="selectedCurrency"/>
     <street-field v-model="setting.street_field" :ns="addns('street_field', info.namespace)"/>
     <delivery-date :name="l10n('Дата доставки')" :ns="addns('delivery_date', info.namespace)"
                    v-model="setting.delivery_date"/>
