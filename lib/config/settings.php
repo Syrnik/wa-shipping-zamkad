@@ -37,4 +37,5 @@ return [
     ]],
     'holidays'         => ['value' => []],
     'workdays'         => ['value' => []],
+    'currency'         => ['value' => 'RUB']
 ];

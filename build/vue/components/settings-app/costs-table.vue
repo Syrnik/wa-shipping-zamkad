@@ -21,6 +21,7 @@
             :key="array_unique_key()"
             :value="t"
             :ns="addns(''+idx, ns)"
+            :currency="currency"
             @delete="deleteRow(idx)"/>
         </tbody>
       </table>
@@ -39,7 +40,8 @@ export default {
   mixins: [UniqueKey, WaL10n],
   props: {
     value: Array,
-    ns: String
+    ns: String,
+    currency: Object
   },
   data() {
     return {

@@ -164,3 +164,9 @@ msgstr "Delivery to the specified distance is not possible"
 
 msgid "Тарифы доставки"
 msgstr "Delivery rates"
+
+msgid "Убедитесь, что выбранная валюта есть в настройках магазина! Рекомендуется указывать здесь основную валюту магазина."
+msgstr "Be sure that the selected currency is in the store settings! It is recommended to specify the main currency of the store here."
+
+msgid "Валюта расчёта"
+msgstr "Currency"
