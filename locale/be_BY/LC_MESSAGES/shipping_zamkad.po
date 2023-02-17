@@ -8,159 +8,147 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Language: en_US\n"
+"Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+"X-Poedit-Language: be_BY\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Basepath: utf-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: .\n"
 
 msgid "Загрузка настроек"
-msgstr "Loading settings"
+msgstr "Загрузка налад"
 
 msgid "Дополнительные выходные"
-msgstr "Additional days off"
+msgstr "Дадатковыя выхадныя"
 
 msgid "Дополнительные рабочие дни"
-msgstr "Additional working days"
+msgstr "Дадатковыя працоўныя дні"
 
 msgid "Регион доставки"
-msgstr "Delivery region"
+msgstr "Рэгіён дастаўкі"
 
 msgid "Дата доставки"
-msgstr "Delivery date"
+msgstr "Дата дастаўкі"
 
 msgid "Расстояние"
-msgstr "Distance"
+msgstr "Адлегласць"
 
 msgid "Фикс. цена"
-msgstr "Fixed price"
+msgstr "Фікс. цана"
 
 msgid "Цена за 1 км."
-msgstr "Price per 1 km."
+msgstr "Цана за 1 км."
 
 msgid "Добавить тариф"
-msgstr "Add a tariff"
+msgstr "Дадаць тарыф"
 
 msgid "Запрашивать желаемую дату доставки"
-msgstr "Request the desired delivery date"
+msgstr "Запытаць жаданую дату дастаўкі"
 
 msgid "Запрашивать желаемый интервал доставки"
-msgstr "Request the desired delivery interval"
+msgstr "Запытаць жаданы інтэрвал дастаўкі"
 
 msgid "Поля даты и интервала доставки"
-msgstr "Delivery date and interval fields"
+msgstr "Поля даты і інтэрвалу дастаўкі"
 
 msgid "Показывать ориентировочную дату доставки"
-msgstr "Show estimated delivery date"
+msgstr "Паказваць арыентыровачны дату дастаўкі"
 
 msgid "Укажите количество дней на доставку. Число или диапазон через тире. Например «1» — один день, т.е. доставка на следующий день, «1-2» — один или два дня, т.е. завтра-послезавтра"
-msgstr "Specify the number of days for delivery. A number or range separated by a dash. For example, \"1\" — one day, i.e. delivery the next day, \"1-2\" — one or two days, i.e. tomorrow-the day after tomorrow"
+msgstr "Пакажыце колькасць дзен на дастаўку. Лік або дыяпазон праз працяжнік. Напрыклад «1» — адзін дзень, г. зн. дастаўка на наступны дзень, «1-2» - адзін ці два дні, г. зн. заўтра-паслязаўтра"
 
 msgid "Название поля с расстоянием"
-msgstr "Field name with distance"
+msgstr "Назва поля з адлегласцю"
 
 msgid "Расстояние от города (км.)"
-msgstr "Distance from the city (km.)"
+msgstr "Адлегласць ад горада (км.)"
 
 msgid "Доставка будет ограничена только выбранной страной или регионом страны"
-msgstr "Delivery will be limited only to the selected country or region of the country"
+msgstr "Дастаўка будзе абмежаваная толькі абранай краінай або рэгіёнам краіны"
 
 msgid "Ограничения по географии"
-msgstr "Geographical restrictions"
+msgstr "Абмежаванні па геаграфіі"
 
 msgid "Ограничение по стоимости заказа"
-msgstr "Limit on the cost of the order"
+msgstr "Абмежаванне па кошту замовы"
 
 msgid "Ограничение по весу"
-msgstr "Weight limit"
+msgstr "Абмежаванне па вазе"
 
 msgid "от"
-msgstr "from"
+msgstr "ад"
 
 msgid "до"
-msgstr "to"
+msgstr "да"
 
 msgid "Поле адреса «Улица, дом, квартира»"
-msgstr "\"street\" input field"
+msgstr "Поле адрасы «Вуліца, дом, кватэра»"
 
 msgid "не запрашивать"
-msgstr "Do not ask"
+msgstr "не запытваць"
 
 msgid "запрашивать"
-msgstr "Ask"
+msgstr "запытваць"
 
 msgid "требовать"
-msgstr "Require"
+msgstr "патрабаваць"
 
 msgid "км."
-msgstr "km."
+msgstr ""
 
 msgid "кг."
-msgstr "kg."
+msgstr ""
 
 msgid "с"
-msgstr "from"
+msgstr "з"
 
 msgid "Интервал доставки"
-msgstr "Delivery interval"
+msgstr "Інтэрвал дастаўкі"
 
 msgid "Пн"
-msgstr "Mo"
+msgstr ""
 
 msgid "Вт"
-msgstr "Tu"
+msgstr ""
 
 msgid "Ср"
-msgstr "We"
+msgstr ""
 
 msgid "Чт"
-msgstr "Th"
+msgstr ""
 
 msgid "Пт"
-msgstr "Fr"
+msgstr ""
 
 msgid "Сб"
-msgstr "Sa"
+msgstr ""
 
 msgid "Вс"
-msgstr "Su"
+msgstr ""
 
 msgid "Доп. выходной"
-msgstr "Extra day off"
+msgstr "Дад. выхадны"
 
 msgid "Доп. рабочий день"
-msgstr "Extra working day"
+msgstr "Дад. працоўны дзень"
 
 msgid "Добавить интервал"
-msgstr "Add an interval"
+msgstr "Дадаць інтэрвал"
 
 msgid "Доставка за город"
-msgstr "Delivery outside the city"
+msgstr "Дастаўка за горад"
 
 msgid "Название варианта доставки"
-msgstr "Name of the delivery option"
+msgstr "Назва варыянту дастаўкі"
 
 msgid "Закрыть"
-msgstr "Close"
+msgstr "Зачыніць"
 
 msgid "Выбрать"
-msgstr "Select"
+msgstr "Выбраць"
 
 msgid "Ошибка загрузки скрипта настроек."
-msgstr "Error loading the settings script."
-
-msgid "Плата за каждый полный и неполный км."
-msgstr "Payment for each full and incomplete km."
-
-msgid "Укажите расстояние в км."
-msgstr "Specify the distance in km."
-
-msgid "Желаемое время доставки"
-msgstr "Desired delivery time"
-
-msgid "Доставка на указанное расстояние невозможна"
-msgstr "Delivery to the specified distance is not possible"
+msgstr "Памылка загрузкі скрыпту налад."
 
 msgid "Тарифы доставки"
-msgstr "Delivery rates"
+msgstr "Тарыфы дастаўкі"
