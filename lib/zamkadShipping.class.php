@@ -187,7 +187,7 @@ class zamkadShipping extends waShipping
 
         $info['currencies'] = waCurrency::getAll('all');
         array_walk($info['currencies'], function (&$v) {
-            return [
+            $v = [
                 'code'      => $v['code'],
                 'name'      => $v['title'],
                 'sign'      => strip_tags($v['sign_html']),
@@ -208,6 +208,7 @@ class zamkadShipping extends waShipping
             if ($a_fav === $b_fav) return $string_comparer($a['name'], $b['name']);
             return $a_fav <=> $b_fav;
         });
+        $info['currencies'] = array_column($info['currencies'], null, 'code');
 
         $view = wa()->getView();
         $_zamkadPlugin = $this;
