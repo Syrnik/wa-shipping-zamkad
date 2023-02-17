@@ -1,25 +1,25 @@
 <template>
-  <wa-field name="Интервалы доставки">
+  <wa-field :name="l10n('Интервалы доставки')">
     <div class="value">
       <table class="zebra">
         <thead>
         <tr>
-          <th colspan="2">Интервал доставки</th>
-          <th>Пн</th>
-          <th>Вт</th>
-          <th>Ср</th>
-          <th>Чт</th>
-          <th>Пт</th>
-          <th>Сб</th>
-          <th>Вс</th>
-          <th>Доп. выходной</th>
-          <th>Доп. рабочий день</th>
+          <th colspan="2">{{'Интервал доставки'|localized}}</th>
+          <th>{{'Пн'|localized}}</th>
+          <th>{{'Вт'|localized}}</th>
+          <th>{{'Ср'|localized}}</th>
+          <th>{{'Чт'|localized}}</th>
+          <th>{{'Пт'|localized}}</th>
+          <th>{{'Сб'|localized}}</th>
+          <th>{{'Вс'|localized}}</th>
+          <th>{{'Доп. выходной'|localized}}</th>
+          <th>{{'Доп. рабочий день'|localized}}</th>
           <th></th>
         </tr>
         </thead>
         <tfoot>
         <tr>
-          <td colspan="12"><a href="#" @click.prevent="addInterval"><i class="icon16 add"></i> Добавить интервал</a>
+          <td colspan="12"><a href="#" @click.prevent="addInterval"><i class="icon16 add"></i> {{'Добавить интервал'|localized}}</a>
           </td>
         </tr>
         </tfoot>
@@ -41,10 +41,11 @@
 <script>
 import Timeframe from './timeframe.vue'
 import UniqueKey from '../vue-array-key-uid'
+import WaL10n from "../wa-l10n";
 
 export default {
   components: {Timeframe},
-  mixins: [UniqueKey],
+  mixins: [UniqueKey, WaL10n],
   props: {
     value: Array,
     ns: String
@@ -64,7 +65,7 @@ export default {
       this.timeframes.push(new_interval);
     },
     deleteInterval(idx) {
-      if(this.timeframes.length > 1) this.timeframes.splice(idx, 1);
+      if (this.timeframes.length > 1) this.timeframes.splice(idx, 1);
     }
   }
 }

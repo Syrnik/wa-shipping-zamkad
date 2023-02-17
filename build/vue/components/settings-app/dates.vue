@@ -10,7 +10,7 @@
     <div class="value">
       <button
           @click.prevent="view.picker = !view.picker"><i class="icon16 calendar"></i>
-        {{ view.picker ? 'Закрыть' : 'Выбрать' }}
+        {{ l10n(view.picker ? 'Закрыть' : 'Выбрать') }}
       </button
       >
       <datepicker ref="dpicker"
@@ -30,6 +30,7 @@ import AddNs from '../wa-namespace'
 import Datepicker from 'vuejs-datepicker'
 import {en, ru, kk, uk} from 'vuejs-datepicker/dist/locale'
 import dateformat from 'dateformat'
+import WaL10n from "../wa-l10n";
 
 export default {
   props: {
@@ -38,7 +39,7 @@ export default {
     value: {type: Array, default: () => []},
     listItemClass: {type: String, default: ''}
   },
-  mixins: [AddNs],
+  mixins: [AddNs, WaL10n],
   components: {Datepicker},
   filters: {
     DMYdate(v) {

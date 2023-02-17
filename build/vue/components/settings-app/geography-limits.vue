@@ -1,5 +1,5 @@
 <template>
-  <wa-field :name="name">
+  <wa-field :name="l10n(name)">
     <div class="value no-shift">
       <select v-model="setting.country" :name="addns('country', ns)">
         <option value="" :selected="setting.country === ''"></option>
@@ -12,12 +12,15 @@
         <option v-for="o in regions" :value="o.code">{{ o.name }}</option>
       </select><i class="icon16 loading" v-if="view.loading.regions"></i>
     </div>
-    <div class="value"><span class="hint">Доставка будет ограничена только выбранной страной или регионом страны</span></div>
+    <div class="value"><span class="hint">{{'Доставка будет ограничена только выбранной страной или регионом страны'|localized}}</span></div>
   </wa-field>
 </template>
 
 <script>
+import WaL10n from "../wa-l10n";
+
 export default {
+  mixins: [WaL10n],
   props: {
     name: {type: String, default: 'Ограничения по географии'},
     urls: Object,

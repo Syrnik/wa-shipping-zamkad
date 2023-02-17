@@ -1,18 +1,18 @@
 <template>
-  <wa-field name="Тарифы доставки">
+  <wa-field :name="l10n('Тарифы доставки')">
     <div class="value no-shift">
       <table class="zebra" style="width: auto">
         <thead>
         <tr>
-          <th>Расстояние</th>
-          <th>Фикс. цена</th>
-          <th colspan="2">Цена за 1 км.</th>
+          <th>{{ 'Расстояние' | localized }}</th>
+          <th>{{ 'Фикс. цена' | localized }}</th>
+          <th colspan="2">{{ 'Цена за 1 км.' | localized }}</th>
           <th></th>
         </tr>
         </thead>
         <tfoot>
         <tr>
-          <td colspan="5"><a href="#" @click.prevent="addRow"><i class="icon16 add"></i> Добавить тариф</a></td>
+          <td colspan="5"><a href="#" @click.prevent="addRow"><i class="icon16 add"></i> {{ l10n('Добавить тариф') }}</a></td>
         </tr>
         </tfoot>
         <tbody>
@@ -32,10 +32,11 @@
 
 import TariffRow from "./tariff-row.vue";
 import UniqueKey from '../vue-array-key-uid'
+import WaL10n from "../wa-l10n";
 
 export default {
   components: {TariffRow},
-  mixins: [UniqueKey],
+  mixins: [UniqueKey, WaL10n],
   props: {
     value: Array,
     ns: String
