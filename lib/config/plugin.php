@@ -1,9 +1,10 @@
 <?php
 /**
  * @author Serge Rodovnichenko <serge@syrnik.com>
- * @copyright Serge Rodovnichenko, 2021
+ * @copyright Serge Rodovnichenko, 2021-2023
  * @license Webasyst
  */
+
 return array(
     'name'                  => 'Доставка с оплатой за расстояние',
     'description'           => 'Стоимость доставки зависит от расстояния в километрах',
@@ -15,7 +16,7 @@ return array(
         64 => 'img/icon-64.png',
     ],
     'logo'                  => 'img/logo-60x32.png',
-    'version'               => '1.0.3',
+    'version'               => '1.2.0',
     'vendor'                => '670917',
     'services_by_type'      => true,
     'type'                  => waShipping::TYPE_TODOOR,

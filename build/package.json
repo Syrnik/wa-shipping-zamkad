@@ -1,6 +1,6 @@
 {
   "name": "zamkad_shipping_plugin",
-  "description": "jsa pps for Pecom Shipping Plugin for Webasyst",
+  "description": "js apps for Zamkad Shipping Plugin for Webasyst",
   "license": "UNLICENSED",
   "scripts": {
     "zamkadShipping:settings:dev": "node ./node_modules/webpack/bin/webpack --config webpack.settings.config.js --mode development",

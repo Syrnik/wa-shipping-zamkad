@@ -28,7 +28,8 @@ class zamkadShipping extends waShipping
      */
     public function allowedCurrency(): string
     {
-        return 'RUB';
+        $c = $this->getSettings('currency') ?? 'RUB';
+        return $this->getSettings('currency') ?? 'RUB';
     }
 
     /**
@@ -42,6 +43,7 @@ class zamkadShipping extends waShipping
     /**
      * @param waOrder $order
      * @return array
+     * @throws waException
      * @throws Exception
      */
     public function customFields(waOrder $order): array
@@ -55,8 +57,8 @@ class zamkadShipping extends waShipping
         $fields['zamkad_distance'] = [
             'control_type' => waHtmlControl::INPUT,
             'value'        => $shipping_params['zamkad_distance'] ?? '',
-            'title'        => $this->getSettings('field_name') ?: 'Расстояние от города (км.)',
-            'description'  => 'Плата за каждый полный и неполный км.',
+            'title'        => $this->getSettings('field_name') ?: _wp('Расстояние от города (км.)'),
+            'description'  => _wp('Плата за каждый полный и неполный км.'),
             'field_type'   => 'number',
             'min'          => 1,
             'max'          => max($last['to'], 1),
@@ -184,8 +186,34 @@ class zamkadShipping extends waShipping
             'regions'   => $this->getInteractionUrl('regions', 'geography')
         ];
 
+        $info['currencies'] = waCurrency::getAll('all');
+        array_walk($info['currencies'], function (&$v) {
+            $v = [
+                'code'      => $v['code'],
+                'name'      => $v['title'],
+                'sign'      => strip_tags($v['sign_html']),
+                'precision' => intval($v['precision'])];
+        });
+
+        if (class_exists('Collator')) {
+            $collator = new Collator(waLocale::getLocale());
+            $string_comparer = fn(string $str1, string $str2) => (int)$collator->compare($str1, $str2);
+        } else $string_comparer = fn(string $str1, string $str2) => mb_strtolower($str1, 'UTF-8') <=> mb_strtolower($str2, 'UTF-8');
+
+        usort($info['currencies'], function ($a, $b) use ($string_comparer) {
+            $a_fav = array_search($a['code'], ['RUB', 'USD', 'EUR', 'BYR', 'BYN', 'KZT', 'UAH']);
+            $b_fav = array_search($b['code'], ['RUB', 'USD', 'EUR', 'BYR', 'BYN', 'KZT', 'UAH']);
+            if (false === $a_fav) $a_fav = PHP_INT_MAX;
+            if (false === $b_fav) $b_fav = PHP_INT_MAX;
+
+            if ($a_fav === $b_fav) return $string_comparer($a['name'], $b['name']);
+            return $a_fav <=> $b_fav;
+        });
+        $info['currencies'] = array_column($info['currencies'], null, 'code');
+
         $view = wa()->getView();
-        $view->assign(compact('settings', 'info'));
+        $_zamkadPlugin = $this;
+        $view->assign(compact('settings', 'info', '_zamkadPlugin'));
 
         return $view->fetch($this->path . '/templates/settings.html');
     }
@@ -280,13 +308,14 @@ class zamkadShipping extends waShipping
 
     /**
      * @return array|bool
+     * @throws waException
      */
     protected function calculate()
     {
         if ($this->isOrderWeightExceedsLimit() || $this->isOrderCostExceedsLimit()) return false;
 
         $delivery_variant = [
-            'currency' => 'RUB'
+            'currency' => $this->getSettings('currency') ?? 'RUB'
         ];
 
         if ($this->variant_name) $delivery_variant['name'] = $this->variant_name;
@@ -297,9 +326,9 @@ class zamkadShipping extends waShipping
             if ($distance) {
                 if (($rate = $this->calcByRule($distance)) !== null)
                     $delivery_variant += ['rate' => $rate];
-                else $delivery_variant += ['rate' => null, 'comment' => 'Доставка на указанное расстояние невозможна'];
+                else $delivery_variant += ['rate' => null, 'comment' => _wp('Доставка на указанное расстояние невозможна')];
             } else {
-                $delivery_variant += ['rate' => null, 'comment' => 'Укажите расстояние в км.'];
+                $delivery_variant += ['rate' => null, 'comment' => _wp('Укажите расстояние в км.')];
             }
         }
 
