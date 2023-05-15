@@ -41,5 +41,6 @@ return array(
     '.gitlab-ci.yml',
     'lib/vendors/*/ci-gitlab/*',
     'lib/vendors/bin',
-    'lib/vendors/jms/metadata/tests/Metadata/Tests'
+    'lib/vendors/jms/metadata/tests/Metadata/Tests',
+    'rector.php'
 );

@@ -130,9 +130,7 @@ class zamkadShipping extends waShipping
                             'price' => (float)max(0.0, round((float)($v['price'] ?? 0.0), 2))
                         ];
                     });
-                    usort($value, function ($a, $b) {
-                        return $a['to'] <=> $b['to'];
-                    });
+                    usort($value, fn($a, $b) => $a['to'] <=> $b['to']);
                     break;
                 case 'timeframes':
                     if (!is_array($value)) {
@@ -410,6 +408,7 @@ class zamkadShipping extends waShipping
      */
     protected function getMinMaxRates(): array
     {
+        $rate = [];
         $table = $this->km_table;
         $first = reset($table);
         $last = array_pop($table);

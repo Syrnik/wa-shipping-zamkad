@@ -18,9 +18,7 @@ class zamkadShippingGeographyActions extends waJsonActions
     {
         $countries = (new waCountryModel())->allWithFav();
 
-        $this->response = array_map(function ($c) {
-            return ['code' => $c['iso3letter'], 'name' => $c['name']];
-        }, $countries);
+        $this->response = array_map(fn($c) => ['code' => $c['iso3letter'], 'name' => $c['name']], $countries);
 
         $this->response = array_values($this->response);
     }
@@ -33,9 +31,7 @@ class zamkadShippingGeographyActions extends waJsonActions
         $country = waRequest::request('country', '', waRequest::TYPE_STRING_TRIM);
         if ($country) {
             $regions = (new waRegionModel())->getByCountry($country);
-            $this->response = array_map(function ($r) {
-                return ['code' => $r['code'], 'name' => $r['name']];
-            }, $regions);
+            $this->response = array_map(fn($r) => ['code' => $r['code'], 'name' => $r['name']], $regions);
         } else $this->response = [];
 
         $this->response = array_values($this->response);

@@ -87,14 +87,12 @@ class zamkadShippingDesiredDeliveryOrderField
 
         $i_from = sprintf('%02d:%02d', $timeframe['from_hour'], $timeframe['from_minutes'] ?: 0);
         $i_to = sprintf('%02d:%02d', $timeframe['to_hour'], $timeframe['to_minutes'] ?: 0);
-        list($interval['from'], $interval['from_m']) = explode(':', $i_from, 2);
-        list($interval['to'], $interval['to_m']) = explode(':', $i_to, 2);
+        [$interval['from'], $interval['from_m']] = explode(':', $i_from, 2);
+        [$interval['to'], $interval['to_m']] = explode(':', $i_to, 2);
 
         $interval['interval'] = "$i_from-$i_to";
 
-        $days = array_map('intval', array_filter($timeframe, function ($v, $k) {
-            return is_numeric($k) && $v;
-        }, ARRAY_FILTER_USE_BOTH));
+        $days = array_map('intval', array_filter($timeframe, fn($v, $k) => is_numeric($k) && $v, ARRAY_FILTER_USE_BOTH));
         foreach ($days as $key => $day) $interval['day'][$key - 1] = 1;
 
         $service_delivery_date = null;
