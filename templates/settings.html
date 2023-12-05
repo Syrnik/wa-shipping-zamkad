@@ -9,12 +9,12 @@
                 id: "zamkad-shipping-settings-js",
                 type: "js",
                 uri: "{$wa_static_url}wa-plugins/shipping/zamkad/js/settings.js?v={$info.version}"
-            },
-            {
-                id: "zamkad-shipping-settings-css",
-                type: "css",
-                uri: "{$wa_static_url}wa-plugins/shipping/zamkad/css/settings.css?v={$info.version}"
             }
+            {*{*}
+            {*    id: "zamkad-shipping-settings-css",*}
+            {*    type: "css",*}
+            {*    uri: "{$wa_static_url}wa-plugins/shipping/zamkad/css/settings.css?v={$info.version}"*}
+            {*}*}
         ]).done(
             () => ShippingZamkadPluginSettings({
                 info: {$info|json_encode:256},
