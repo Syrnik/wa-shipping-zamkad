@@ -2,13 +2,11 @@
   display: inline;
   margin: 0;
   list-style-type: none;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   padding: 0;
 }
 #shipping-zamkad-settings-block .vue-dates-list li {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   margin: 0 0.3em 0 0;
   padding: 3px;
   border: 1px solid transparent;
@@ -21,15 +19,13 @@
 #shipping-zamkad-settings-block .vue-dates-list li a {
   vertical-align: middle;
   display: inline-block;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 #shipping-zamkad-settings-block .vue-dates-list li a i.icon10 {
   margin: 0;
   vertical-align: initial;
   line-height: 10px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 #shipping-zamkad-settings-block .vdp-datepicker .cell.selected {
   background-color: transparent;

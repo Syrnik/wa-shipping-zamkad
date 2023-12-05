@@ -1,3 +1,25 @@
 <div id="zamkad-shipping-settings">
     <h4>{$_zamkadPlugin->_w('Загрузка настроек')} <div class="spinner"></div></h4>
 </div>
+
+<script>
+    (function () {
+        $.wa.loadSources([
+            {
+                id: "zamkad-shipping-settings-js",
+                type: "js",
+                uri: "{$wa_static_url}wa-plugins/shipping/zamkad/js/settings.js?v={$info.version}"
+            },
+            {
+                id: "zamkad-shipping-settings-css",
+                type: "css",
+                uri: "{$wa_static_url}wa-plugins/shipping/zamkad/css/settings.css?v={$info.version}"
+            }
+        ]).done(
+            () => ShippingZamkadPluginSettings({
+                info: {$info|json_encode:256},
+                settings: {$settings|json_encode:256}
+            }).mount('#zamkad-shipping-settings')
+        );
+    })();
+</script>
