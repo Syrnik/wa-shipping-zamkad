@@ -246,6 +246,7 @@ class zamkadShipping extends waShipping
 
     /**
      * @return DateTime[]|null
+     * @throws Exception
      */
     public function getDeliveryDates(): array
     {
