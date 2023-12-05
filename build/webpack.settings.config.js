@@ -5,9 +5,9 @@ let config = {
     entry: './settings.js',
     output: {
         path: __dirname,
-        filename: '../js/settings.js',
+        filename: '../js/settings-legacy.js',
         libraryTarget: 'umd',
-        library: 'ShippingZamkadPluginSettings',
+        library: 'ShippingZamkadPluginSettingsLegacy',
         libraryExport: 'default'
     },
     resolve: {

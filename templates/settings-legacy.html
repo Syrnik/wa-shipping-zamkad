@@ -60,7 +60,7 @@
         defer.resolve();
         return;
       }
-      $.getScript('{$wa_static_url}wa-plugins/shipping/zamkad/js/settings.js?v=' + '{$info.version}')
+      $.getScript('{$wa_static_url}wa-plugins/shipping/zamkad/js/settings-legacy.js?v=' + '{$info.version}')
         .done(function () {
           defer.resolve();
         })
@@ -69,7 +69,7 @@
           defer.reject();
         });
     })).done(function () {
-      ShippingZamkadPluginSettings({
+      ShippingZamkadPluginSettingsLegacy({
         el: '#zamkad-shipping-settings',
         info: {$info|json_encode},
         settings: {$settings|json_encode}

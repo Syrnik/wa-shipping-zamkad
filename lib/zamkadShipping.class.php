@@ -21,7 +21,7 @@ declare(strict_types=1);
 class zamkadShipping extends waShipping
 {
     /** @var array|null */
-    protected ?array $_typecasted_settings;
+    protected ?array $_typecasted_settings = null;
 
     /**
      * @return string
@@ -241,7 +241,9 @@ class zamkadShipping extends waShipping
         $_zamkadPlugin = $this;
         $view->assign(compact('settings', 'info', '_zamkadPlugin'));
 
-        return $view->fetch($this->path . '/templates/settings.html');
+        $template_name = version_compare(wa()->whichUI(), '2.0', '>=') ? 'settings' : 'settings-legacy';
+
+        return $view->fetch("$this->path/templates/$template_name.html");
     }
 
     /**

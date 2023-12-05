@@ -3,8 +3,8 @@
   "description": "js apps for Zamkad Shipping Plugin for Webasyst",
   "license": "UNLICENSED",
   "scripts": {
-    "zamkadShipping:settings:dev": "node ./node_modules/webpack/bin/webpack --config webpack.settings.config.js --mode development",
-    "zamkadShipping:settings:prod": "node ./node_modules/webpack/bin/webpack --config webpack.settings.config.js --mode production"
+    "zamkadShipping:settings:dev": "set NODE_OPTIONS=--openssl-legacy-provider && node ./node_modules/webpack/bin/webpack --config webpack.settings.config.js --mode development",
+    "zamkadShipping:settings:prod": "set NODE_OPTIONS=--openssl-legacy-provider && node ./node_modules/webpack/bin/webpack --config webpack.settings.config.js --mode production"
   },
   "dependencies": {
     "@babel/core": "^7.13.14",
