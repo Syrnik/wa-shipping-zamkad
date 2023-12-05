@@ -21,7 +21,7 @@ declare(strict_types=1);
 class zamkadShipping extends waShipping
 {
     /** @var array|null */
-    protected $_typecasted_settings;
+    protected ?array $_typecasted_settings;
 
     /**
      * @return string
@@ -63,7 +63,7 @@ class zamkadShipping extends waShipping
             'min'          => 1,
             'max'          => max($last['to'], 1),
             'step'         => 1,
-//            'required'     => 1,
+            //            'required'     => 1,
             'data'         => ['affects-rate' => true]
         ];
 
@@ -134,12 +134,40 @@ class zamkadShipping extends waShipping
                     break;
                 case 'timeframes':
                     if (!is_array($value)) {
-                        $value = [['from_hour' => 9, 'from_minutes' => 0, 'to_hour' => 18, 'to_minutes' => 0, 1 => true, 2 => true, 3 => true, 4 => true, 5 => true, 6 => false, 7 => false, 'holidays' => false, 'workdays' => false]];
+                        $value = [[
+                                      'from_hour'    => 9,
+                                      'from_minutes' => 0,
+                                      'to_hour'      => 18,
+                                      'to_minutes'   => 0,
+                                      1              => true,
+                                      2              => true,
+                                      3              => true,
+                                      4              => true,
+                                      5              => true,
+                                      6              => false,
+                                      7              => false,
+                                      'holidays'     => false,
+                                      'workdays'     => false
+                                  ]];
                         break;
                     }
                     array_walk($value, function (&$v) {
                         if (!is_array($v))
-                            $v = ['from_hour' => 9, 'from_minutes' => 0, 'to_hour' => 18, 'to_minutes' => 0, 1 => true, 2 => true, 3 => true, 4 => true, 5 => true, 6 => false, 7 => false, 'holidays' => false, 'workdays' => false];
+                            $v = [
+                                'from_hour'    => 9,
+                                'from_minutes' => 0,
+                                'to_hour'      => 18,
+                                'to_minutes'   => 0,
+                                1              => true,
+                                2              => true,
+                                3              => true,
+                                4              => true,
+                                5              => true,
+                                6              => false,
+                                7              => false,
+                                'holidays'     => false,
+                                'workdays'     => false
+                            ];
                         foreach ($v as $key => $item) {
                             switch ($key) {
                                 case 'from_hour':
@@ -424,9 +452,9 @@ class zamkadShipping extends waShipping
             sort($rate, SORT_NUMERIC);
             return [
 //            'rate'     => $min_rate,
-                'rate'     => $rate,
-                'rate_min' => $rate[0],
-                'rate_max' => $rate[1]
+'rate'     => $rate,
+'rate_min' => $rate[0],
+'rate_max' => $rate[1]
             ];
         } else
             return ['rate' => $rate[0]];

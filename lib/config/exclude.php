@@ -42,5 +42,8 @@ return array(
     'lib/vendors/*/ci-gitlab/*',
     'lib/vendors/bin',
     'lib/vendors/jms/metadata/tests/Metadata/Tests',
-    'rector.php'
+    'rector.php',
+    '*/rector.php',
+    '*/.editorconfig',
+    '.editorconfig'
 );
