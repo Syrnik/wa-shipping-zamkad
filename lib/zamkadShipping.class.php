@@ -183,6 +183,19 @@ class zamkadShipping extends waShipping
                         for ($i = 1; $i < 8; $i++) if (!isset($v[$i])) $v[$i] = false;
                     });
                     break;
+                case 'holidays':
+                case 'workdays':
+                    if (!is_array($value)) {
+                        $value = [];
+                    } else {
+                        $normalized = [];
+                        foreach ($value as $v) {
+                            $v = trim((string)$v);
+                            if ($v) $normalized[$v] = $v;
+                        }
+                        $value = $normalized;
+                    }
+                    break;
                 case 'desired_delivery':
                     $value = ['date' => (bool)($value['date'] ?? false), 'interval' => (bool)($value['interval'] ?? false)];
                     break;

@@ -44,6 +44,7 @@ class zamkadShippingDesiredDeliveryOrderField
         if (!($setting['date'] ?? false) && !($setting['interval'] ?? false)) return [];
 
         $days_from_now = (int)max(0, ($this->getStartTime() - time()) / (24 * 3600));
+        $schedule = $this->getSchedule();
         $field = [
             'value'        => $this->extractValuesFromOrder(),
             'control_type' => waHtmlControl::DATETIME,
@@ -52,8 +53,9 @@ class zamkadShippingDesiredDeliveryOrderField
                 'autocomlpete' => false,
                 'date'         => $setting['date'] ? $days_from_now : null,
                 'interval'     => $setting['interval'] ?? 0,
+                'holidays'     => array_values($schedule['holidays']),
+                'workdays'     => array_values($schedule['workdays']),
             ]
-
         ];
 
         if ($this->plugin->timeframes) {
@@ -94,6 +96,8 @@ class zamkadShippingDesiredDeliveryOrderField
 
         $days = array_map('intval', array_filter($timeframe, fn($v, $k) => is_numeric($k) && $v, ARRAY_FILTER_USE_BOTH));
         foreach ($days as $key => $day) $interval['day'][$key - 1] = 1;
+        if (!empty($timeframe['holidays'])) $interval['day']['holiday'] = 1;
+        if (!empty($timeframe['workdays'])) $interval['day']['workday'] = 1;
 
         $service_delivery_date = null;
         $stepwise_date = new DateTime();

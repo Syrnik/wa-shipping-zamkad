@@ -1,0 +1,26 @@
+{
+  "name": "zamkad_shipping_plugin",
+  "description": "js apps for Zamkad Shipping Plugin for Webasyst",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.0",
+    "@vitejs/plugin-vue": "^5.2.4",
+    "terser": "^5.47.1",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vite-plugin-css-injected-by-js": "^3.5.2",
+    "vue-tsc": "^2.2.10"
+  },
+  "dependencies": {
+    "dateformat": "^4.5.1",
+    "lodash.tonumber": "^4.0.3",
+    "number-formatter": "^1.2.0",
+    "stylus": "^0.64.0",
+    "vue": "^3.5.13"
+  }
+}
