@@ -19,7 +19,7 @@ return array(
     'version'               => '1.3.0',
     'vendor'                => '670917',
     'services_by_type'      => true,
-    'type'                  => waShipping::TYPE_TODOOR,
+    'type'                  => 'todoor',
     'backend_custom_fields' => true,
     'fractional_quantity'   => true,
     'stock_units'           => true

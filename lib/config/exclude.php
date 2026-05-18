@@ -7,6 +7,7 @@
 
 return array(
     'README.md',
+    'README.en.md',
     'CHANGELOG.md',
     'CONTRIBUTING.md',
     'contributors.txt',
