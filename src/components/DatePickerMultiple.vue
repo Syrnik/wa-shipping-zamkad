@@ -1,11 +1,11 @@
 <template>
   <div class="zamkad-datepicker">
     <div class="zamkad-datepicker__nav">
-      <button type="button" @click="prevMonth">&#9664;</button>
+      <button type="button" class="zamkad-datepicker__nav-btn" @click="prevMonth"><i class="fas fa-chevron-left"></i></button>
       <span class="zamkad-datepicker__title" @click="toggleYearView">
         {{ monthName }} {{ currentYear }}
       </span>
-      <button type="button" @click="nextMonth">&#9654;</button>
+      <button type="button" class="zamkad-datepicker__nav-btn" @click="nextMonth"><i class="fas fa-chevron-right"></i></button>
     </div>
 
     <template v-if="!yearView">
@@ -155,12 +155,23 @@ function selectYear(y: number): void {
     align-items center
     justify-content space-between
     margin-bottom 6px
-    button
-      background none
-      border none
-      cursor pointer
-      font-size 12px
-      padding 2px 6px
+
+  &__nav-btn
+    background none !important
+    border none !important
+    box-shadow none !important
+    padding 2px 6px !important
+    margin 0 !important
+    min-width 0 !important
+    height auto !important
+    line-height 1 !important
+    cursor pointer
+    font-size 12px
+    color inherit
+    &:hover
+      background none !important
+      color inherit !important
+      opacity 0.6
 
   &__title
     cursor pointer

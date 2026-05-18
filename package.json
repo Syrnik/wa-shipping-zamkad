@@ -3,8 +3,10 @@
   "description": "js apps for Zamkad Shipping Plugin for Webasyst",
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "vite build --watch",
-    "build": "vite build",
+    "dev": "vite build --watch --config vite.config.ts",
+    "build": "vite build --config vite.config.ts",
+    "settings:dev": "vite build --watch --mode development --config vite.config.settings.ts",
+    "settings:build": "vite build --mode production --config vite.config.settings.ts",
     "typecheck": "vue-tsc --noEmit"
   },
   "devDependencies": {

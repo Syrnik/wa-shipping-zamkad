@@ -1,0 +1,53 @@
+#shipping-zamkad-settings-block
+  .vue-dates-list
+    display inline
+    margin 0
+    list-style-type none
+    box-sizing border-box
+    padding 0
+
+    li
+      box-sizing border-box
+      margin 0 0.3em 0 0
+      padding 3px
+      border 1px solid transparent
+      font-size 12px
+      border-radius 3px
+      line-height 12px
+      height 20px
+      display inline-block
+
+      a
+        vertical-align middle
+        display inline-block
+        box-sizing border-box
+
+  .holidays
+    .zamkad-datepicker__day--selected
+      background-color #5a5 !important
+
+    .vue-dates-list > li
+      background-color #cfc
+      border-color lightgreen
+
+  .workdays
+    .zamkad-datepicker__day--selected
+      background-color #a55 !important
+
+    .vue-dates-list > li
+      background-color #fcc
+      border-color rosybrown
+
+  .validated.input
+    &+span.validity
+      padding-left 5px
+
+    &:invalid+span.validity:after
+      color: red
+      font-weight bold
+      content '✖'
+
+    &:valid+span.validity:after
+      color green
+      font-weight bold
+      content '✓'
