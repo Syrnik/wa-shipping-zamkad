@@ -51,4 +51,6 @@ return array(
     'vite.config.settings.ts',
     'vite.config.ts',
     'tsconfig.json',
+    'compress-system-plugin.php',
+    '.github/*',
 );
