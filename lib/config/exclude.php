@@ -45,5 +45,10 @@ return array(
     'rector.php',
     '*/rector.php',
     '*/.editorconfig',
-    '.editorconfig'
+    '.editorconfig',
+    'package.json',
+    'package-lock.json',
+    'vite.config.settings.ts',
+    'vite.config.ts',
+    'tsconfig.json',
 );
