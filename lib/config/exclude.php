@@ -7,6 +7,7 @@
 
 return array(
     'README.md',
+    'README.en.md',
     'CHANGELOG.md',
     'CONTRIBUTING.md',
     'contributors.txt',
@@ -41,5 +42,16 @@ return array(
     '.gitlab-ci.yml',
     'lib/vendors/*/ci-gitlab/*',
     'lib/vendors/bin',
-    'lib/vendors/jms/metadata/tests/Metadata/Tests'
+    'lib/vendors/jms/metadata/tests/Metadata/Tests',
+    'rector.php',
+    '*/rector.php',
+    '*/.editorconfig',
+    '.editorconfig',
+    'package.json',
+    'package-lock.json',
+    'vite.config.settings.ts',
+    'vite.config.ts',
+    'tsconfig.json',
+    'compress-system-plugin.php',
+    '.github/*',
 );

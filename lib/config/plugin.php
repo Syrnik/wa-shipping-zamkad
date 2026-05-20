@@ -16,10 +16,10 @@ return array(
         64 => 'img/icon-64.png',
     ],
     'logo'                  => 'img/logo-60x32.png',
-    'version'               => '1.2.0',
+    'version'               => '1.3.0',
     'vendor'                => '670917',
     'services_by_type'      => true,
-    'type'                  => waShipping::TYPE_TODOOR,
+    'type'                  => 'todoor',
     'backend_custom_fields' => true,
     'fractional_quantity'   => true,
     'stock_units'           => true
