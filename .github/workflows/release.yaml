@@ -21,6 +21,11 @@ jobs:
         with:
           php-version: '8.2'
 
+      - name: Compile PO to MO
+        run: |
+          sudo apt-get install -y gettext
+          find locale -name "*.po" -exec sh -c 'msgfmt "$1" -o "${1%.po}.mo"' _ {} \;
+
       - name: Run compress-system-plugin.php
         run: php compress-system-plugin.php shipping/zamkad -plugin-path .
 
