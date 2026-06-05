@@ -25,12 +25,14 @@
       :name="l10n('Дополнительные выходные')"
       v-model="setting.holidays"
       :ns="addns('holidays', info.namespace)"
+      button-class="green"
     />
     <Dates
       class="workdays"
       :name="l10n('Дополнительные рабочие дни')"
       v-model="setting.workdays"
       :ns="addns('workdays', info.namespace)"
+      button-class="pink"
     />
   </div>
 </template>
